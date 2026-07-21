@@ -8,6 +8,7 @@ import { CaseStorySection } from "@/components/case/CaseStorySection";
 import { CaseTopNav } from "@/components/case/CaseTopNav";
 import { Contact } from "@/components/home/Contact";
 import { HomeFooter } from "@/components/home/HomeFooter";
+import { Reveal } from "@/components/layout/Reveal";
 import { casePageNav } from "@/content/cases/page-nav";
 import {
   rutubeCaseBrief,
@@ -48,18 +49,20 @@ export default function RutubeDeepCasePage() {
             backHref={rutubeCaseHero.backHref}
           />
 
-          <CaseBriefIntro
-            logoSrc={rutubeCaseBrief.logoSrc}
-            logoAlt={rutubeCaseBrief.logoAlt}
-            roleLabel={rutubeCaseBrief.roleLabel}
-            roleValue={rutubeCaseBrief.roleValue}
-            teamLabel={rutubeCaseBrief.teamLabel}
-            teamAvatars={rutubeCaseBrief.teamAvatars}
-            taskTitle={rutubeCaseBrief.taskTitle}
-            taskBody={rutubeCaseBrief.taskBody}
-            resultsTitle={rutubeCaseBrief.resultsTitle}
-            resultLines={rutubeCaseBrief.resultLines}
-          />
+          <Reveal>
+            <CaseBriefIntro
+              logoSrc={rutubeCaseBrief.logoSrc}
+              logoAlt={rutubeCaseBrief.logoAlt}
+              roleLabel={rutubeCaseBrief.roleLabel}
+              roleValue={rutubeCaseBrief.roleValue}
+              teamLabel={rutubeCaseBrief.teamLabel}
+              teamAvatars={rutubeCaseBrief.teamAvatars}
+              taskTitle={rutubeCaseBrief.taskTitle}
+              taskBody={rutubeCaseBrief.taskBody}
+              resultsTitle={rutubeCaseBrief.resultsTitle}
+              resultLines={rutubeCaseBrief.resultLines}
+            />
+          </Reveal>
 
           <CaseStorySection
             lead={rutubeCaseStory.lead}
@@ -67,39 +70,43 @@ export default function RutubeDeepCasePage() {
           />
 
           {/* Mobile: separate cards. Desktop: one shell (results inset + related). */}
-          <CaseDeepResults
-            className="md:hidden"
-            title={rutubeCaseDeepResults.title}
-            metrics={[...rutubeCaseDeepResults.metrics]}
-            narrativeGroups={rutubeCaseDeepResults.narrativeGroups.map(
-              (group) => [...group],
-            )}
-          />
-          <CaseRelatedCases
-            className="md:hidden"
-            title={rutubeCaseRelatedCases.title}
-            cases={[...rutubeCaseRelatedCases.cases]}
-            showTitleOnMobile={rutubeCaseRelatedCases.showTitleOnMobile}
-          />
+          <Reveal className="md:hidden">
+            <CaseDeepResults
+              title={rutubeCaseDeepResults.title}
+              metrics={[...rutubeCaseDeepResults.metrics]}
+              narrativeGroups={rutubeCaseDeepResults.narrativeGroups.map(
+                (group) => [...group],
+              )}
+            />
+          </Reveal>
+          <Reveal className="md:hidden" variant="subtle">
+            <CaseRelatedCases
+              title={rutubeCaseRelatedCases.title}
+              cases={[...rutubeCaseRelatedCases.cases]}
+              showTitleOnMobile={rutubeCaseRelatedCases.showTitleOnMobile}
+            />
+          </Reveal>
 
-          <section className="hidden rounded-[32px] bg-ink p-8 text-surface md:block">
-            <div className="flex flex-col gap-12">
-              <CaseDeepResults
-                framed={false}
-                title={rutubeCaseDeepResults.title}
-                metrics={[...rutubeCaseDeepResults.metrics]}
-                narrativeGroups={rutubeCaseDeepResults.narrativeGroups.map(
-                  (group) => [...group],
-                )}
-              />
-              <CaseRelatedCases
-                framed={false}
-                title={rutubeCaseRelatedCases.title}
-                cases={[...rutubeCaseRelatedCases.cases]}
-                showTitleOnMobile
-              />
-            </div>
-          </section>
+          <Reveal className="hidden md:block">
+            <section className="rounded-[32px] bg-ink p-8 text-surface">
+              <div className="flex flex-col gap-12">
+                <CaseDeepResults
+                  framed={false}
+                  title={rutubeCaseDeepResults.title}
+                  metrics={[...rutubeCaseDeepResults.metrics]}
+                  narrativeGroups={rutubeCaseDeepResults.narrativeGroups.map(
+                    (group) => [...group],
+                  )}
+                />
+                <CaseRelatedCases
+                  framed={false}
+                  title={rutubeCaseRelatedCases.title}
+                  cases={[...rutubeCaseRelatedCases.cases]}
+                  showTitleOnMobile
+                />
+              </div>
+            </section>
+          </Reveal>
 
           {/* Mobile Figma: contact + footer share an ink strip (gap 32). */}
           <div className="flex flex-col gap-8 bg-ink md:contents">

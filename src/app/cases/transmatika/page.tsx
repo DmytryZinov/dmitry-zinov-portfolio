@@ -9,6 +9,7 @@ import { CaseTopNav } from "@/components/case/CaseTopNav";
 import { CaseWorkStack } from "@/components/case/CaseWorkStack";
 import { Contact } from "@/components/home/Contact";
 import { HomeFooter } from "@/components/home/HomeFooter";
+import { Reveal } from "@/components/layout/Reveal";
 import { casePageNav } from "@/content/cases/page-nav";
 import {
   transmatikaAbout,
@@ -57,34 +58,44 @@ export default function TransmatikaCasePage() {
             titleMaxWidth={{ ...transmatikaHero.titleMaxWidth }}
           />
 
-          <CaseMetaCard padding="dense" items={transmatikaMeta} />
+          <Reveal>
+            <CaseMetaCard padding="dense" items={transmatikaMeta} />
+          </Reveal>
 
-          <CaseDetailCta
-            title={transmatikaCta.title}
-            description={transmatikaCta.description}
-            buttonLabel={transmatikaCta.buttonLabel}
-            href={transmatikaCta.href}
-            thumbSrc={transmatikaCta.thumbSrc}
-            thumbSrcMobile={transmatikaCta.thumbSrcMobile}
-            thumbAlt={transmatikaCta.thumbAlt}
-            thumbVariant={transmatikaCta.thumbVariant}
-            titleWeightDesktop={transmatikaCta.titleWeightDesktop}
-          />
+          <Reveal>
+            <CaseDetailCta
+              title={transmatikaCta.title}
+              description={transmatikaCta.description}
+              buttonLabel={transmatikaCta.buttonLabel}
+              href={transmatikaCta.href}
+              thumbSrc={transmatikaCta.thumbSrc}
+              thumbSrcMobile={transmatikaCta.thumbSrcMobile}
+              thumbAlt={transmatikaCta.thumbAlt}
+              thumbVariant={transmatikaCta.thumbVariant}
+              titleWeightDesktop={transmatikaCta.titleWeightDesktop}
+            />
+          </Reveal>
 
-          <CaseResultsCard
-            title={transmatikaResults.title}
-            titleMobile={transmatikaResults.titleMobile}
-            metrics={[...transmatikaResults.metrics]}
-            bodyLines={[...transmatikaResults.bodyLines]}
-            bodyTone={transmatikaResults.bodyTone}
-          />
+          <Reveal>
+            <CaseResultsCard
+              title={transmatikaResults.title}
+              titleMobile={transmatikaResults.titleMobile}
+              metrics={[...transmatikaResults.metrics]}
+              bodyLines={[...transmatikaResults.bodyLines]}
+              bodyTone={transmatikaResults.bodyTone}
+            />
+          </Reveal>
 
-          <CaseWorkStack
-            items={transmatikaWork}
-            gap={{ mobile: 64, desktop: 64 }}
-          />
+          <Reveal variant="fade">
+            <CaseWorkStack
+              items={transmatikaWork}
+              gap={{ mobile: 64, desktop: 64 }}
+            />
+          </Reveal>
 
-          <CaseInfoSections sections={transmatikaAbout} />
+          <Reveal variant="subtle">
+            <CaseInfoSections sections={transmatikaAbout} />
+          </Reveal>
 
           {/* Mobile Figma: contact + footer share an ink strip (gap 32). */}
           <div className="flex flex-col gap-8 bg-ink md:contents">

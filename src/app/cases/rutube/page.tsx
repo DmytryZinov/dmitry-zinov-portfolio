@@ -7,6 +7,7 @@ import { CasePageShell } from "@/components/case/CasePageShell";
 import { CaseResultsCard } from "@/components/case/CaseResultsCard";
 import { CaseTopNav } from "@/components/case/CaseTopNav";
 import { CaseWorkStack } from "@/components/case/CaseWorkStack";
+import { Reveal } from "@/components/layout/Reveal";
 import { casePageNav } from "@/content/cases/page-nav";
 import {
   rutubeCaseMeta,
@@ -50,51 +51,59 @@ export default function RutubeCasePage() {
             backgroundSrcMobile={rutubeHero.backgroundSrcMobile}
           />
 
-          <CaseMetaCard className="order-2" items={rutubeMeta} />
+          <Reveal className="order-2">
+            <CaseMetaCard items={rutubeMeta} />
+          </Reveal>
 
-          <CaseNarrativeCard
-            className="order-3"
-            body={rutubeNarrative.body}
-            imageSrc={rutubeNarrative.imageSrc}
-            imageAlt={rutubeNarrative.imageAlt}
-            imageWidth={rutubeNarrative.imageWidth}
-            imageHeight={rutubeNarrative.imageHeight}
-          />
+          <Reveal className="order-3" variant="fade">
+            <CaseNarrativeCard
+              body={rutubeNarrative.body}
+              imageSrc={rutubeNarrative.imageSrc}
+              imageAlt={rutubeNarrative.imageAlt}
+              imageWidth={rutubeNarrative.imageWidth}
+              imageHeight={rutubeNarrative.imageHeight}
+            />
+          </Reveal>
 
           {/* Mobile: CTA before Results. Desktop: Results before CTA. */}
-          <CaseDetailCta
-            className="order-4 md:order-5"
-            title={rutubeCtaPrimary.title}
-            description={rutubeCtaPrimary.description}
-            descriptionMobile={rutubeCtaPrimary.descriptionMobile}
-            buttonLabel={rutubeCtaPrimary.buttonLabel}
-            href={rutubeCtaPrimary.href}
-            thumbSrc={rutubeCtaPrimary.thumbSrc}
-            thumbSrcMobile={rutubeCtaPrimary.thumbSrcMobile}
-            thumbAlt={rutubeCtaPrimary.thumbAlt}
-          />
+          <Reveal className="order-4 md:order-5">
+            <CaseDetailCta
+              title={rutubeCtaPrimary.title}
+              description={rutubeCtaPrimary.description}
+              descriptionMobile={rutubeCtaPrimary.descriptionMobile}
+              buttonLabel={rutubeCtaPrimary.buttonLabel}
+              href={rutubeCtaPrimary.href}
+              thumbSrc={rutubeCtaPrimary.thumbSrc}
+              thumbSrcMobile={rutubeCtaPrimary.thumbSrcMobile}
+              thumbAlt={rutubeCtaPrimary.thumbAlt}
+            />
+          </Reveal>
 
-          <CaseResultsCard
-            className="order-5 md:order-4"
-            title={rutubeResults.title}
-            titleMobile={rutubeResults.titleMobile}
-            metrics={[...rutubeResults.metrics]}
-            body={rutubeResults.body}
-          />
+          <Reveal className="order-5 md:order-4">
+            <CaseResultsCard
+              title={rutubeResults.title}
+              titleMobile={rutubeResults.titleMobile}
+              metrics={[...rutubeResults.metrics]}
+              body={rutubeResults.body}
+            />
+          </Reveal>
 
-          <CaseWorkStack className="order-6" items={rutubeWork} />
+          <Reveal className="order-6" variant="fade">
+            <CaseWorkStack items={rutubeWork} />
+          </Reveal>
 
-          <CaseDetailCta
-            className="order-7"
-            title={rutubeCtaSecondary.title}
-            description={rutubeCtaSecondary.description}
-            descriptionMobile={rutubeCtaSecondary.descriptionMobile}
-            buttonLabel={rutubeCtaSecondary.buttonLabel}
-            href={rutubeCtaSecondary.href}
-            thumbSrc={rutubeCtaSecondary.thumbSrc}
-            thumbSrcMobile={rutubeCtaSecondary.thumbSrcMobile}
-            thumbAlt={rutubeCtaSecondary.thumbAlt}
-          />
+          <Reveal className="order-7">
+            <CaseDetailCta
+              title={rutubeCtaSecondary.title}
+              description={rutubeCtaSecondary.description}
+              descriptionMobile={rutubeCtaSecondary.descriptionMobile}
+              buttonLabel={rutubeCtaSecondary.buttonLabel}
+              href={rutubeCtaSecondary.href}
+              thumbSrc={rutubeCtaSecondary.thumbSrc}
+              thumbSrcMobile={rutubeCtaSecondary.thumbSrcMobile}
+              thumbAlt={rutubeCtaSecondary.thumbAlt}
+            />
+          </Reveal>
         </div>
       </div>
     </CasePageShell>

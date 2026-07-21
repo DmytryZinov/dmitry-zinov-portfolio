@@ -3,6 +3,7 @@ import {
   CaseInsightCallout,
   type CaseInsightPoint,
 } from "@/components/case/CaseInsightCallout";
+import { Reveal } from "@/components/layout/Reveal";
 import { cn } from "@/lib/utils";
 
 export type CaseStoryBlock = {
@@ -184,26 +185,29 @@ export function CaseStoryStep({
 
   if (insight && !hasContent) {
     return (
-      <CaseInsightCallout
-        className={className}
-        eyebrow={insight.eyebrow}
-        lead={insight.lead}
-        support={insight.support}
-        points={insight.points}
-      />
+      <Reveal variant="case" className={className}>
+        <CaseInsightCallout
+          eyebrow={insight.eyebrow}
+          lead={insight.lead}
+          support={insight.support}
+          points={insight.points}
+        />
+      </Reveal>
     );
   }
 
   const media =
     imageSrc != null ? (
-      <StoryMedia
-        src={imageSrc}
-        srcMobile={imageSrcMobile}
-        alt={imageAlt}
-        width={imageWidth}
-        height={imageHeight}
-        radius={imageRadius}
-      />
+      <Reveal variant="image">
+        <StoryMedia
+          src={imageSrc}
+          srcMobile={imageSrcMobile}
+          alt={imageAlt}
+          width={imageWidth}
+          height={imageHeight}
+          radius={imageRadius}
+        />
+      </Reveal>
     ) : null;
 
   const callout = insight ? (
@@ -232,30 +236,44 @@ export function CaseStoryStep({
 
   const blocksNode = <StoryBlocks blocks={blockList} />;
   const blocksAfterNode = <StoryBlocks blocks={blockAfterList} />;
+  const afterCopy =
+    blockAfterList.length > 0 ||
+    (paragraphsAfter != null && paragraphsAfter.length > 0) ||
+    callout != null ? (
+      <Reveal variant="case">
+        <div className="flex flex-col gap-4 md:gap-5">
+          {blocksAfterNode}
+          {paragraphsAfter ? (
+            <StoryParagraphs paragraphs={paragraphsAfter} />
+          ) : null}
+          {callout}
+        </div>
+      </Reveal>
+    ) : null;
 
   return (
     <article className={cn("flex flex-col gap-4 md:gap-5", className)}>
       {mediaFirst ? (
         <>
           {media}
-          {copy}
-          {blocksNode}
-          {blocksAfterNode}
-          {paragraphsAfter ? (
-            <StoryParagraphs paragraphs={paragraphsAfter} />
-          ) : null}
-          {callout}
+          <Reveal variant="case">
+            <div className="flex flex-col gap-4 md:gap-5">
+              {copy}
+              {blocksNode}
+            </div>
+          </Reveal>
+          {afterCopy}
         </>
       ) : (
         <>
-          {copy}
-          {blocksNode}
+          <Reveal variant="case">
+            <div className="flex flex-col gap-4 md:gap-5">
+              {copy}
+              {blocksNode}
+            </div>
+          </Reveal>
           {media}
-          {blocksAfterNode}
-          {paragraphsAfter ? (
-            <StoryParagraphs paragraphs={paragraphsAfter} />
-          ) : null}
-          {callout}
+          {afterCopy}
         </>
       )}
     </article>

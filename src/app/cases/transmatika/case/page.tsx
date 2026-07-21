@@ -8,6 +8,7 @@ import { CaseStorySection } from "@/components/case/CaseStorySection";
 import { CaseTopNav } from "@/components/case/CaseTopNav";
 import { Contact } from "@/components/home/Contact";
 import { HomeFooter } from "@/components/home/HomeFooter";
+import { Reveal } from "@/components/layout/Reveal";
 import { casePageNav } from "@/content/cases/page-nav";
 import {
   transmatikaCaseBrief,
@@ -54,60 +55,66 @@ export default function TransmatikaDeepCasePage() {
             titleGap={transmatikaCaseHero.titleGap}
           />
 
-          <CaseBriefIntro
-            logoSrc={transmatikaCaseBrief.logoSrc}
-            logoAlt={transmatikaCaseBrief.logoAlt}
-            logoDesktopOnly={transmatikaCaseBrief.logoDesktopOnly}
-            roleLabel={transmatikaCaseBrief.roleLabel}
-            roleValue={transmatikaCaseBrief.roleValue}
-            teamLabel={transmatikaCaseBrief.teamLabel}
-            teamAvatars={transmatikaCaseBrief.teamAvatars}
-            taskTitle={transmatikaCaseBrief.taskTitle}
-            taskBody={transmatikaCaseBrief.taskBody}
-            taskBodyTone={transmatikaCaseBrief.taskBodyTone}
-            stackGap={transmatikaCaseBrief.stackGap}
-            resultsTitle={transmatikaCaseBrief.resultsTitle}
-            resultLines={transmatikaCaseBrief.resultLines}
-          />
+          <Reveal>
+            <CaseBriefIntro
+              logoSrc={transmatikaCaseBrief.logoSrc}
+              logoAlt={transmatikaCaseBrief.logoAlt}
+              logoDesktopOnly={transmatikaCaseBrief.logoDesktopOnly}
+              roleLabel={transmatikaCaseBrief.roleLabel}
+              roleValue={transmatikaCaseBrief.roleValue}
+              teamLabel={transmatikaCaseBrief.teamLabel}
+              teamAvatars={transmatikaCaseBrief.teamAvatars}
+              taskTitle={transmatikaCaseBrief.taskTitle}
+              taskBody={transmatikaCaseBrief.taskBody}
+              taskBodyTone={transmatikaCaseBrief.taskBodyTone}
+              stackGap={transmatikaCaseBrief.stackGap}
+              resultsTitle={transmatikaCaseBrief.resultsTitle}
+              resultLines={transmatikaCaseBrief.resultLines}
+            />
+          </Reveal>
 
           <CaseStorySection
             steps={transmatikaCaseStory.steps}
             stepsGap={transmatikaCaseStory.stepsGap}
           />
 
-          <CaseDeepResults
-            className="md:hidden"
-            title={transmatikaCaseResults.title}
-            metrics={[...transmatikaCaseResults.metrics]}
-            narrativeGroups={transmatikaCaseResults.narrativeGroups.map(
-              (group) => [...group],
-            )}
-          />
-          <CaseRelatedCases
-            className="md:hidden"
-            title={transmatikaCaseRelatedCases.title}
-            cases={[...transmatikaCaseRelatedCases.cases]}
-            showTitleOnMobile={transmatikaCaseRelatedCases.showTitleOnMobile}
-          />
+          <Reveal className="md:hidden">
+            <CaseDeepResults
+              title={transmatikaCaseResults.title}
+              metrics={[...transmatikaCaseResults.metrics]}
+              narrativeGroups={transmatikaCaseResults.narrativeGroups.map(
+                (group) => [...group],
+              )}
+            />
+          </Reveal>
+          <Reveal className="md:hidden" variant="subtle">
+            <CaseRelatedCases
+              title={transmatikaCaseRelatedCases.title}
+              cases={[...transmatikaCaseRelatedCases.cases]}
+              showTitleOnMobile={transmatikaCaseRelatedCases.showTitleOnMobile}
+            />
+          </Reveal>
 
-          <section className="hidden rounded-[32px] bg-ink p-8 text-surface md:block">
-            <div className="flex flex-col gap-12">
-              <CaseDeepResults
-                framed={false}
-                title={transmatikaCaseResults.title}
-                metrics={[...transmatikaCaseResults.metrics]}
-                narrativeGroups={transmatikaCaseResults.narrativeGroups.map(
-                  (group) => [...group],
-                )}
-              />
-              <CaseRelatedCases
-                framed={false}
-                title={transmatikaCaseRelatedCases.title}
-                cases={[...transmatikaCaseRelatedCases.cases]}
-                showTitleOnMobile
-              />
-            </div>
-          </section>
+          <Reveal className="hidden md:block">
+            <section className="rounded-[32px] bg-ink p-8 text-surface">
+              <div className="flex flex-col gap-12">
+                <CaseDeepResults
+                  framed={false}
+                  title={transmatikaCaseResults.title}
+                  metrics={[...transmatikaCaseResults.metrics]}
+                  narrativeGroups={transmatikaCaseResults.narrativeGroups.map(
+                    (group) => [...group],
+                  )}
+                />
+                <CaseRelatedCases
+                  framed={false}
+                  title={transmatikaCaseRelatedCases.title}
+                  cases={[...transmatikaCaseRelatedCases.cases]}
+                  showTitleOnMobile
+                />
+              </div>
+            </section>
+          </Reveal>
 
           <div className="flex flex-col gap-8 bg-ink md:contents">
             <Contact width="case" />

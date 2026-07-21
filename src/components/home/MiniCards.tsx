@@ -1,4 +1,5 @@
 import { MiniCard } from "@/components/home/MiniCard";
+import { Reveal } from "@/components/layout/Reveal";
 import { homeMiniCards } from "@/content/home";
 import { cn } from "@/lib/utils";
 
@@ -20,11 +21,13 @@ export function MiniCards({ className }: MiniCardsProps) {
         className,
       )}
     >
-      <div className="mx-auto flex w-full max-w-container-home flex-col gap-3 md:flex-row md:gap-6">
-        {homeMiniCards.map((card) => (
-          <MiniCard key={card.title} card={card} />
-        ))}
-      </div>
+      <Reveal variant="subtle">
+        <div className="mx-auto flex w-full max-w-container-home flex-col gap-3 md:flex-row md:gap-6">
+          {homeMiniCards.map((card) => (
+            <MiniCard key={card.title} card={card} />
+          ))}
+        </div>
+      </Reveal>
     </section>
   );
 }

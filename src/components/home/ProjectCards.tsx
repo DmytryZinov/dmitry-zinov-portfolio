@@ -1,4 +1,5 @@
 import { ProjectCard } from "@/components/home/ProjectCard";
+import { Reveal } from "@/components/layout/Reveal";
 import { homeProjects } from "@/content/home";
 import { cn } from "@/lib/utils";
 
@@ -18,7 +19,9 @@ export function ProjectCards({ className }: ProjectCardsProps) {
     >
       <div className="mx-auto flex w-full max-w-container-home flex-col gap-3 md:gap-[64px]">
         {homeProjects.map((project) => (
-          <ProjectCard key={project.slug} project={project} />
+          <Reveal key={project.slug}>
+            <ProjectCard project={project} />
+          </Reveal>
         ))}
       </div>
     </section>

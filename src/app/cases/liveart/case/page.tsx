@@ -8,6 +8,7 @@ import { CaseStorySection } from "@/components/case/CaseStorySection";
 import { CaseTopNav } from "@/components/case/CaseTopNav";
 import { Contact } from "@/components/home/Contact";
 import { HomeFooter } from "@/components/home/HomeFooter";
+import { Reveal } from "@/components/layout/Reveal";
 import { casePageNav } from "@/content/cases/page-nav";
 import {
   liveartCaseBrief,
@@ -54,60 +55,66 @@ export default function LiveartDeepCasePage() {
             titleGap={liveartCaseHero.titleGap}
           />
 
-          <CaseBriefIntro
-            logoSrc={liveartCaseBrief.logoSrc}
-            logoAlt={liveartCaseBrief.logoAlt}
-            logoDesktopOnly={liveartCaseBrief.logoDesktopOnly}
-            roleLabel={liveartCaseBrief.roleLabel}
-            roleValue={liveartCaseBrief.roleValue}
-            teamLabel={liveartCaseBrief.teamLabel}
-            teamAvatars={liveartCaseBrief.teamAvatars}
-            taskTitle={liveartCaseBrief.taskTitle}
-            taskBody={liveartCaseBrief.taskBody}
-            taskBodyTone={liveartCaseBrief.taskBodyTone}
-            stackGap={liveartCaseBrief.stackGap}
-            resultsTitle={liveartCaseBrief.resultsTitle}
-            resultLines={liveartCaseBrief.resultLines}
-          />
+          <Reveal>
+            <CaseBriefIntro
+              logoSrc={liveartCaseBrief.logoSrc}
+              logoAlt={liveartCaseBrief.logoAlt}
+              logoDesktopOnly={liveartCaseBrief.logoDesktopOnly}
+              roleLabel={liveartCaseBrief.roleLabel}
+              roleValue={liveartCaseBrief.roleValue}
+              teamLabel={liveartCaseBrief.teamLabel}
+              teamAvatars={liveartCaseBrief.teamAvatars}
+              taskTitle={liveartCaseBrief.taskTitle}
+              taskBody={liveartCaseBrief.taskBody}
+              taskBodyTone={liveartCaseBrief.taskBodyTone}
+              stackGap={liveartCaseBrief.stackGap}
+              resultsTitle={liveartCaseBrief.resultsTitle}
+              resultLines={liveartCaseBrief.resultLines}
+            />
+          </Reveal>
 
           <CaseStorySection
             steps={liveartCaseStory.steps}
             stepsGap={liveartCaseStory.stepsGap}
           />
 
-          <CaseDeepResults
-            className="md:hidden"
-            title={liveartCaseResults.title}
-            metrics={[...liveartCaseResults.metrics]}
-            narrativeGroups={liveartCaseResults.narrativeGroups.map(
-              (group) => [...group],
-            )}
-          />
-          <CaseRelatedCases
-            className="md:hidden"
-            title={liveartCaseRelatedCases.title}
-            cases={[...liveartCaseRelatedCases.cases]}
-            showTitleOnMobile={liveartCaseRelatedCases.showTitleOnMobile}
-          />
+          <Reveal className="md:hidden">
+            <CaseDeepResults
+              title={liveartCaseResults.title}
+              metrics={[...liveartCaseResults.metrics]}
+              narrativeGroups={liveartCaseResults.narrativeGroups.map(
+                (group) => [...group],
+              )}
+            />
+          </Reveal>
+          <Reveal className="md:hidden" variant="subtle">
+            <CaseRelatedCases
+              title={liveartCaseRelatedCases.title}
+              cases={[...liveartCaseRelatedCases.cases]}
+              showTitleOnMobile={liveartCaseRelatedCases.showTitleOnMobile}
+            />
+          </Reveal>
 
-          <section className="hidden rounded-[32px] bg-ink p-8 text-surface md:block">
-            <div className="flex flex-col gap-12">
-              <CaseDeepResults
-                framed={false}
-                title={liveartCaseResults.title}
-                metrics={[...liveartCaseResults.metrics]}
-                narrativeGroups={liveartCaseResults.narrativeGroups.map(
-                  (group) => [...group],
-                )}
-              />
-              <CaseRelatedCases
-                framed={false}
-                title={liveartCaseRelatedCases.title}
-                cases={[...liveartCaseRelatedCases.cases]}
-                showTitleOnMobile
-              />
-            </div>
-          </section>
+          <Reveal className="hidden md:block">
+            <section className="rounded-[32px] bg-ink p-8 text-surface">
+              <div className="flex flex-col gap-12">
+                <CaseDeepResults
+                  framed={false}
+                  title={liveartCaseResults.title}
+                  metrics={[...liveartCaseResults.metrics]}
+                  narrativeGroups={liveartCaseResults.narrativeGroups.map(
+                    (group) => [...group],
+                  )}
+                />
+                <CaseRelatedCases
+                  framed={false}
+                  title={liveartCaseRelatedCases.title}
+                  cases={[...liveartCaseRelatedCases.cases]}
+                  showTitleOnMobile
+                />
+              </div>
+            </section>
+          </Reveal>
 
           <div className="flex flex-col gap-8 bg-ink md:contents">
             <Contact width="case" />

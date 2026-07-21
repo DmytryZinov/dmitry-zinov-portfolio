@@ -9,6 +9,7 @@ import { CaseTopNav } from "@/components/case/CaseTopNav";
 import { CaseWorkStack } from "@/components/case/CaseWorkStack";
 import { Contact } from "@/components/home/Contact";
 import { HomeFooter } from "@/components/home/HomeFooter";
+import { Reveal } from "@/components/layout/Reveal";
 import { casePageNav } from "@/content/cases/page-nav";
 import {
   liveartAbout,
@@ -58,41 +59,51 @@ export default function LiveartCasePage() {
             titleGap={{ ...liveartHero.titleGap }}
           />
 
-          <CaseMetaCard padding="dense" items={liveartMeta} />
+          <Reveal>
+            <CaseMetaCard padding="dense" items={liveartMeta} />
+          </Reveal>
 
-          <CaseDetailCta
-            title={liveartCta.title}
-            description={liveartCta.description}
-            buttonLabel={liveartCta.buttonLabel}
-            href={liveartCta.href}
-            thumbSrc={liveartCta.thumbSrc}
-            thumbAlt={liveartCta.thumbAlt}
-            thumbVariant={liveartCta.thumbVariant}
-            mediaType={liveartCta.mediaType}
-            videoSrc={liveartCta.videoSrc}
-            videoTransform={liveartCta.videoTransform}
-            videoTransformMobile={liveartCta.videoTransformMobile}
-            titleWeightDesktop={liveartCta.titleWeightDesktop}
-          />
+          <Reveal>
+            <CaseDetailCta
+              title={liveartCta.title}
+              description={liveartCta.description}
+              buttonLabel={liveartCta.buttonLabel}
+              href={liveartCta.href}
+              thumbSrc={liveartCta.thumbSrc}
+              thumbAlt={liveartCta.thumbAlt}
+              thumbVariant={liveartCta.thumbVariant}
+              mediaType={liveartCta.mediaType}
+              videoSrc={liveartCta.videoSrc}
+              videoTransform={liveartCta.videoTransform}
+              videoTransformMobile={liveartCta.videoTransformMobile}
+              titleWeightDesktop={liveartCta.titleWeightDesktop}
+            />
+          </Reveal>
 
-          <CaseResultsCard
-            title={liveartResults.title}
-            titleMobile={liveartResults.titleMobile}
-            metrics={[...liveartResults.metrics]}
-            bodyLines={[...liveartResults.bodyLines]}
-            bodyTone={liveartResults.bodyTone}
-          />
+          <Reveal>
+            <CaseResultsCard
+              title={liveartResults.title}
+              titleMobile={liveartResults.titleMobile}
+              metrics={[...liveartResults.metrics]}
+              bodyLines={[...liveartResults.bodyLines]}
+              bodyTone={liveartResults.bodyTone}
+            />
+          </Reveal>
 
-          <CaseWorkStack
-            items={liveartWork}
-            gap={{ mobile: 64, desktop: 64 }}
-            padding="compact"
-          />
+          <Reveal variant="fade">
+            <CaseWorkStack
+              items={liveartWork}
+              gap={{ mobile: 64, desktop: 64 }}
+              padding="compact"
+            />
+          </Reveal>
 
-          <CaseInfoSections
-            sections={liveartAbout}
-            padding="asymmetric"
-          />
+          <Reveal variant="subtle">
+            <CaseInfoSections
+              sections={liveartAbout}
+              padding="asymmetric"
+            />
+          </Reveal>
 
           {/* Mobile Figma: contact + footer share an ink strip (gap 32). */}
           <div className="flex flex-col gap-8 bg-ink md:contents">

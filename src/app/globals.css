@@ -182,3 +182,53 @@ html.custom-cursor-active * {
   -webkit-backdrop-filter: blur(6px);
 }
 
+/* ——— Scroll reveal (IntersectionObserver + CSS) ——— */
+.reveal {
+  opacity: 0;
+  will-change: opacity, transform;
+  transition-property: opacity, transform;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal--default {
+  transform: translate3d(0, 24px, 0);
+  transition-duration: 800ms;
+}
+
+.reveal--subtle {
+  transform: translate3d(0, 12px, 0);
+  transition-duration: 550ms;
+}
+
+/* Deep-case story copy — short travel, continuous reading */
+.reveal--case {
+  transform: translate3d(0, 8px, 0);
+  transition-duration: 550ms;
+}
+
+/* Large media — opacity only (museum-style) */
+.reveal--image,
+.reveal--fade {
+  transform: none;
+  transition-duration: 600ms;
+}
+
+.reveal.is-revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal--default,
+  .reveal--subtle,
+  .reveal--case,
+  .reveal--image,
+  .reveal--fade {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    will-change: auto;
+  }
+}
+

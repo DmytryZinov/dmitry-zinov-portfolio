@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Header } from "@/components/layout/Header";
+import { Reveal } from "@/components/layout/Reveal";
 import { Button } from "@/components/ui/Button";
 import { IconArrowUpRight } from "@/components/ui/IconArrowUpRight";
 import { homeHero } from "@/content/home";
@@ -110,26 +111,28 @@ export function Hero({ className }: HeroProps) {
           </div>
 
           {/* Intro: portrait (desktop only here) + headline */}
-          <div className="flex flex-col gap-5">
-            <Image
-              src={portrait.src}
-              alt=""
-              width={portrait.width}
-              height={portrait.height}
-              className="hidden size-12 rounded-lg object-cover md:block"
-              aria-hidden
-              priority
-            />
-            <div className="flex flex-col">
-              {/* Medium stand-in: Regular @ 500 + hairline stroke (550+ = full synthetic bold). */}
-              <h1 className="whitespace-pre-line text-h1-mobile font-medium leading-h1-mobile text-white [-webkit-text-stroke:0.08px_currentColor] md:text-h1 md:leading-h1">
-                {headline}
-              </h1>
-              <p className="text-h1-mobile font-medium leading-h1-mobile text-hero-muted [-webkit-text-stroke:0.08px_currentColor] md:text-h1 md:leading-h1">
-                {focus}
-              </p>
+          <Reveal>
+            <div className="flex flex-col gap-5">
+              <Image
+                src={portrait.src}
+                alt=""
+                width={portrait.width}
+                height={portrait.height}
+                className="hidden size-12 rounded-lg object-cover md:block"
+                aria-hidden
+                priority
+              />
+              <div className="flex flex-col">
+                {/* Medium stand-in: Regular @ 500 + hairline stroke (550+ = full synthetic bold). */}
+                <h1 className="whitespace-pre-line text-h1-mobile font-medium leading-h1-mobile text-white [-webkit-text-stroke:0.08px_currentColor] md:text-h1 md:leading-h1">
+                  {headline}
+                </h1>
+                <p className="text-h1-mobile font-medium leading-h1-mobile text-hero-muted [-webkit-text-stroke:0.08px_currentColor] md:text-h1 md:leading-h1">
+                  {focus}
+                </p>
+              </div>
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>
