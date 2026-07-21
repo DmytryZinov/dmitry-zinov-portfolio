@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "../styles/tokens.css";
 @import "../styles/fonts.css";
+@import "lenis/dist/lenis.css";
 
 @theme inline {
   --color-canvas: var(--raw-canvas);
@@ -73,6 +74,15 @@
     -moz-osx-font-smoothing: grayscale;
     /* Suisse: only Regular is loaded; 500–700 synthesize from it. */
     font-synthesis: weight;
+    /* Kill stray horizontal jank; keep native vertical scroll. */
+    overflow-x: clip;
+    /* Dark-native chrome (Firefox/Safari system scrollbar fallback). */
+    color-scheme: dark;
+    /* Firefox thin scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: var(--raw-scrollbar-thumb) var(--raw-scrollbar-track);
+    /* Lenis owns inertia; avoid CSS double-smoothing. */
+    scroll-behavior: auto;
   }
 
   body {
@@ -81,5 +91,31 @@
     font-family: var(--font-sans);
     font-size: var(--text-body);
     line-height: var(--leading-body);
+    overflow-x: clip;
+  }
+
+  /* WebKit / Blink — minimal light thumb on dark pages */
+  html::-webkit-scrollbar {
+    width: var(--raw-scrollbar-size);
+    height: var(--raw-scrollbar-size);
+  }
+
+  html::-webkit-scrollbar-track {
+    background: var(--raw-scrollbar-track);
+  }
+
+  html::-webkit-scrollbar-thumb {
+    background-color: var(--raw-scrollbar-thumb);
+    border-radius: 999px;
+    border: 1px solid transparent;
+    background-clip: content-box;
+  }
+
+  html::-webkit-scrollbar-thumb:hover {
+    background-color: var(--raw-scrollbar-thumb-hover);
+  }
+
+  html::-webkit-scrollbar-corner {
+    background: transparent;
   }
 }

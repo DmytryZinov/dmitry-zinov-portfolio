@@ -73,4 +73,10 @@
   --raw-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --raw-duration-fast: 150ms;
   --raw-duration-base: 250ms;
+
+  /* Scrollbar — dark chrome, light thumb (portfolio surface) */
+  --raw-scrollbar-size: 5px;
+  --raw-scrollbar-thumb: rgba(247, 247, 247, 0.22);
+  --raw-scrollbar-thumb-hover: rgba(247, 247, 247, 0.42);
+  --raw-scrollbar-track: transparent;
 }
