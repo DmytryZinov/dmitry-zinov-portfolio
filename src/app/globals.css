@@ -76,17 +76,13 @@
     font-synthesis: weight;
     /* Kill stray horizontal jank; keep native vertical scroll. */
     overflow-x: clip;
-    /* Dark-native chrome (Firefox/Safari system scrollbar fallback). */
+    /* Prefer dark UA chrome (avoids light system scrollbar flash). */
     color-scheme: dark;
-    /* Firefox thin scrollbar */
-    scrollbar-width: thin;
-    scrollbar-color: var(--raw-scrollbar-thumb) var(--raw-scrollbar-track);
     /* Lenis owns inertia; avoid CSS double-smoothing. */
     scroll-behavior: auto;
   }
 
   body {
-    background: var(--color-canvas);
     color: var(--color-ink);
     font-family: var(--font-sans);
     font-size: var(--text-body);
@@ -94,28 +90,54 @@
     overflow-x: clip;
   }
 
-  /* WebKit / Blink — minimal light thumb on dark pages */
-  html::-webkit-scrollbar {
-    width: var(--raw-scrollbar-size);
-    height: var(--raw-scrollbar-size);
-  }
+  /*
+    Custom scrollbar — desktop only (md+).
+    Target html + body so Chromium gutter matches dark root.
+    Mobile keeps the system scrollbar.
+  */
+  @media (min-width: 48rem) {
+    html,
+    body {
+      scrollbar-width: thin;
+      scrollbar-color: var(--raw-scrollbar-thumb) var(--raw-scrollbar-track);
+    }
 
-  html::-webkit-scrollbar-track {
-    background: var(--raw-scrollbar-track);
-  }
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar {
+      width: var(--raw-scrollbar-size);
+      height: var(--raw-scrollbar-size);
+      background-color: var(--raw-scrollbar-track);
+    }
 
-  html::-webkit-scrollbar-thumb {
-    background-color: var(--raw-scrollbar-thumb);
-    border-radius: 999px;
-    border: 1px solid transparent;
-    background-clip: content-box;
-  }
+    html::-webkit-scrollbar-track,
+    body::-webkit-scrollbar-track {
+      background-color: var(--raw-scrollbar-track);
+    }
 
-  html::-webkit-scrollbar-thumb:hover {
-    background-color: var(--raw-scrollbar-thumb-hover);
-  }
+    html::-webkit-scrollbar-thumb,
+    body::-webkit-scrollbar-thumb {
+      background-color: var(--raw-scrollbar-thumb);
+      border-radius: 999px;
+    }
 
-  html::-webkit-scrollbar-corner {
-    background: transparent;
+    html::-webkit-scrollbar-thumb:hover,
+    body::-webkit-scrollbar-thumb:hover {
+      background-color: var(--raw-scrollbar-thumb-hover);
+    }
+
+    html::-webkit-scrollbar-corner,
+    body::-webkit-scrollbar-corner {
+      background-color: var(--raw-scrollbar-track);
+    }
   }
 }
+
+/*
+  Unlayered so it wins over body `bg-canvas` utility (#fff).
+  Matches DarkPageSurface edge — kills Chromium white scrollbar gutter.
+*/
+html,
+body {
+  background-color: var(--raw-root-bg);
+}
+

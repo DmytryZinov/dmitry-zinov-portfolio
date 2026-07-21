@@ -74,9 +74,12 @@
   --raw-duration-fast: 150ms;
   --raw-duration-base: 250ms;
 
-  /* Scrollbar — dark chrome, light thumb (portfolio surface) */
-  --raw-scrollbar-size: 5px;
-  --raw-scrollbar-thumb: rgba(247, 247, 247, 0.22);
-  --raw-scrollbar-thumb-hover: rgba(247, 247, 247, 0.42);
-  --raw-scrollbar-track: transparent;
+  /* Root page fill — matches DarkPageSurface edge (#131313), not light --raw-canvas */
+  --raw-root-bg: #131313;
+
+  /* Scrollbar — desktop-only premium (dark track + soft thumb) */
+  --raw-scrollbar-size: 6px;
+  --raw-scrollbar-thumb: rgba(255, 255, 255, 0.25);
+  --raw-scrollbar-thumb-hover: rgba(255, 255, 255, 0.45);
+  --raw-scrollbar-track: rgba(255, 255, 255, 0.04);
 }
