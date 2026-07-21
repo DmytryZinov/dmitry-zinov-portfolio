@@ -1,0 +1,85 @@
+@import "tailwindcss";
+@import "../styles/tokens.css";
+@import "../styles/fonts.css";
+
+@theme inline {
+  --color-canvas: var(--raw-canvas);
+  --color-surface: var(--raw-surface);
+  --color-surface-warm: var(--raw-surface-warm);
+  --color-ink: var(--raw-ink);
+  --color-ink-strong: var(--raw-ink-strong);
+  --color-ink-muted: var(--raw-ink-muted);
+  --color-ink-subtle: var(--raw-ink-subtle);
+  --color-hero-muted: var(--raw-hero-muted);
+  --color-border: var(--raw-border);
+  --color-border-on-hero: var(--raw-border-on-hero);
+  --color-accent-green: var(--raw-accent-green);
+  --color-accent-cyan: var(--raw-accent-cyan);
+  --color-accent-teal: var(--raw-accent-teal);
+  --color-accent-magenta: var(--raw-accent-magenta);
+
+  --font-sans: var(--raw-font-sans);
+  --font-display: var(--raw-font-display);
+
+  --text-caption: var(--raw-text-caption);
+  --text-caption-lg: var(--raw-text-caption-lg);
+  --text-body-sm: var(--raw-text-body-sm);
+  --text-body: var(--raw-text-body);
+  --text-body-lg: var(--raw-text-body-lg);
+  --text-h2-mobile: var(--raw-text-h2-mobile);
+  --text-h2: var(--raw-text-h2);
+  --text-h1-mobile: var(--raw-text-h1-mobile);
+  --text-h1: var(--raw-text-h1);
+
+  --leading-caption: var(--raw-leading-caption);
+  --leading-body: var(--raw-leading-body);
+  --leading-heading: var(--raw-leading-heading);
+  --leading-h1: var(--raw-leading-h1);
+  --leading-h1-mobile: var(--raw-leading-h1-mobile);
+
+  --spacing-1: var(--space-1);
+  --spacing-2: var(--space-2);
+  --spacing-3: var(--space-3);
+  --spacing-4: var(--space-4);
+  --spacing-5: var(--space-5);
+  --spacing-6: var(--space-6);
+  --spacing-8: var(--space-8);
+  --spacing-10: var(--space-10);
+  --spacing-12: var(--space-12);
+  --spacing-page-gutter-mobile: var(--page-gutter-mobile);
+  --spacing-page-gutter-desktop: var(--page-gutter-desktop);
+
+  --radius-sm: var(--raw-radius-sm);
+  --radius-md: var(--raw-radius-md);
+  --radius-lg: var(--raw-radius-lg);
+  --radius-full: var(--raw-radius-full);
+
+  --max-width-container-home: var(--container-home);
+  --max-width-container-case: var(--container-case);
+  --max-width-container-page: var(--container-page);
+
+  --ease-out: var(--raw-ease-out);
+  --duration-fast: var(--raw-duration-fast);
+  --duration-base: var(--raw-duration-base);
+
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 85.375rem;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Suisse: only Regular is loaded; 500–700 synthesize from it. */
+    font-synthesis: weight;
+  }
+
+  body {
+    background: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+  }
+}

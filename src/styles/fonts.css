@@ -1,0 +1,17 @@
+/*
+  Suisse Intl — only Regular is available locally.
+  Weights 500/600/700 use browser synthetic bold from Regular
+  (no @font-face entries for missing Medium/SemiBold/Bold files).
+*/
+
+@font-face {
+  font-family: "Suisse Intl";
+  src: url("/fonts/suisse-intl/SuisseIntl-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-suisse: "Suisse Intl";
+}
