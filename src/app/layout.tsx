@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { CustomCursor } from "@/components/layout/CustomCursor";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
 import { getSiteUrl } from "@/lib/site-url";
 import "./globals.css";
@@ -31,6 +32,7 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body className="min-h-screen bg-canvas text-ink font-sans antialiased">
+        <CustomCursor />
         <SmoothScroll>
           <main className="w-full">{children}</main>
         </SmoothScroll>

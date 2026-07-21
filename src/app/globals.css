@@ -141,3 +141,44 @@ body {
   background-color: var(--raw-root-bg);
 }
 
+/* Desktop custom cursor — only while CustomCursor mounts & enables. */
+html.custom-cursor-active,
+html.custom-cursor-active * {
+  cursor: none !important;
+}
+
+.custom-cursor {
+  width: 0;
+  height: 0;
+  opacity: 0;
+  transition: opacity 200ms ease;
+  will-change: transform;
+}
+
+.custom-cursor.is-visible {
+  opacity: 1;
+}
+
+.custom-cursor__inner {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.85);
+  transform: translate(-50%, -50%);
+  transition:
+    width 250ms var(--raw-ease-out, ease),
+    height 250ms var(--raw-ease-out, ease),
+    background-color 250ms ease,
+    backdrop-filter 250ms ease,
+    -webkit-backdrop-filter 250ms ease;
+  will-change: width, height, background-color;
+}
+
+.custom-cursor__inner.is-hover {
+  width: 40px; /* ~5× */
+  height: 40px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
