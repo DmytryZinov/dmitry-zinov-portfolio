@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { CustomCursor } from "@/components/layout/CustomCursor";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
+import { YandexMetrika } from "@/components/layout/YandexMetrika";
 import { getSiteUrl } from "@/lib/site-url";
 import "./globals.css";
 
@@ -36,6 +37,7 @@ export default function RootLayout({
         <SmoothScroll>
           <main className="w-full">{children}</main>
         </SmoothScroll>
+        <YandexMetrika />
       </body>
     </html>
   );
