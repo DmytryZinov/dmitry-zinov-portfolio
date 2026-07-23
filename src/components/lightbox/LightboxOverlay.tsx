@@ -3,6 +3,7 @@
 import {
   useCallback,
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
   type CSSProperties,
@@ -22,7 +23,8 @@ const BACKDROP_OPEN_MS = 400; // delay + duration ≈ OPEN_MS finish
 const BACKDROP_CLOSE_MS = 320;
 const ZOOM_RESET_MS = 220;
 const MAX_ZOOM = 3;
-const VIEW_PAD = 24;
+/** Opened image fits within this fraction of the viewport (not the thumb). */
+const VIEW_FIT = 0.92;
 
 type Phase = "opening" | "open" | "closing";
 
@@ -39,10 +41,11 @@ function isCoarsePointer() {
   return window.matchMedia("(pointer: coarse)").matches;
 }
 
+/** Largest box of `src` aspect that fits in 92vw × 92vh, centered. */
 function containInViewport(srcW: number, srcH: number) {
-  const maxW = window.innerWidth - VIEW_PAD * 2;
-  const maxH = window.innerHeight - VIEW_PAD * 2;
-  const aspect = srcW / srcH;
+  const maxW = window.innerWidth * VIEW_FIT;
+  const maxH = window.innerHeight * VIEW_FIT;
+  const aspect = srcW / Math.max(srcH, 0.0001);
   let width = maxW;
   let height = width / aspect;
   if (height > maxH) {
@@ -100,8 +103,9 @@ export function LightboxOverlay({ origin, onClosed }: LightboxOverlayProps) {
   const [dragging, setDragging] = useState(false);
   const [mounted, setMounted] = useState(false);
   const backdropDelayRef = useRef(0);
+  const openTimerRef = useRef(0);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setMounted(true);
   }, []);
 
@@ -112,8 +116,8 @@ export function LightboxOverlay({ origin, onClosed }: LightboxOverlayProps) {
     panRef.current = pan;
   }, [pan]);
 
-  // Open animation + scroll lock
-  useEffect(() => {
+  // Open animation + scroll lock (layout effect: size before first paint)
+  useLayoutEffect(() => {
     reducedRef.current = prefersReducedMotion();
     mobileRef.current = isCoarsePointer();
 
@@ -142,18 +146,24 @@ export function LightboxOverlay({ origin, onClosed }: LightboxOverlayProps) {
     const target = containInViewport(origin.rect.width, origin.rect.height);
     targetRef.current = target;
 
+    const baseShell = {
+      position: "fixed" as const,
+      left: target.left,
+      top: target.top,
+      width: target.width,
+      height: target.height,
+      maxWidth: "92vw",
+      maxHeight: "92vh",
+      transformOrigin: "center center" as const,
+      zIndex: 1,
+    };
+
     if (reducedRef.current) {
       setShellStyle({
-        position: "fixed",
-        left: target.left,
-        top: target.top,
-        width: target.width,
-        height: target.height,
+        ...baseShell,
         borderRadius: 0,
-        transform: "translate3d(0,0,0) scale(1)",
-        transformOrigin: "center center",
-        overflow: "hidden",
-        zIndex: 1,
+        transform: "none",
+        overflow: "visible",
       });
       setBackdropTransition("none");
       setBackdropOn(true);
@@ -164,33 +174,39 @@ export function LightboxOverlay({ origin, onClosed }: LightboxOverlayProps) {
         `opacity ${BACKDROP_OPEN_MS}ms ${BACKDROP_EASING}`,
       );
       setShellStyle({
-        position: "fixed",
-        left: target.left,
-        top: target.top,
-        width: target.width,
-        height: target.height,
+        ...baseShell,
         borderRadius: origin.borderRadius,
         transform: `translate3d(${dx}px, ${dy}px, 0) scale(${sx}, ${sy})`,
-        transformOrigin: "center center",
         transition: "none",
         willChange: "transform, border-radius",
         overflow: "hidden",
-        zIndex: 1,
       });
 
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           // Image leads; backdrop follows after a short beat.
-          setShellStyle((prev) => ({
-            ...prev,
+          setShellStyle({
+            ...baseShell,
             borderRadius: 0,
             transform: "translate3d(0,0,0) scale(1)",
             transition: `transform ${OPEN_MS}ms ${EASING}, border-radius ${OPEN_MS}ms ${EASING}`,
-          }));
+            willChange: "transform, border-radius",
+            overflow: "hidden",
+          });
           backdropDelayRef.current = window.setTimeout(() => {
             setBackdropOn(true);
           }, BACKDROP_OPEN_DELAY_MS);
-          window.setTimeout(() => setPhase("open"), OPEN_MS);
+          openTimerRef.current = window.setTimeout(() => {
+            // Pin final open layout to viewport fit (no leftover FLIP transform).
+            setShellStyle({
+              ...baseShell,
+              borderRadius: 0,
+              transform: "none",
+              transition: "none",
+              overflow: "visible",
+            });
+            setPhase("open");
+          }, OPEN_MS);
         });
       });
     }
@@ -200,6 +216,7 @@ export function LightboxOverlay({ origin, onClosed }: LightboxOverlayProps) {
       document.removeEventListener("wheel", blockScroll, true);
       document.removeEventListener("touchmove", blockScroll, true);
       window.clearTimeout(backdropDelayRef.current);
+      window.clearTimeout(openTimerRef.current);
       if (origin.sourceId) {
         document
           .querySelector(`[data-lightbox-id="${origin.sourceId}"]`)
@@ -260,6 +277,8 @@ export function LightboxOverlay({ origin, onClosed }: LightboxOverlayProps) {
       top: target.top,
       width: target.width,
       height: target.height,
+      maxWidth: "92vw",
+      maxHeight: "92vh",
       borderRadius: 0,
       transform: "translate3d(0,0,0) scale(1)",
       transformOrigin: "center center",
@@ -310,8 +329,11 @@ export function LightboxOverlay({ origin, onClosed }: LightboxOverlayProps) {
 
   const clampPan = useCallback((z: number, x: number, y: number) => {
     const t = targetRef.current;
-    const maxX = ((z - 1) * t.width) / 2;
-    const maxY = ((z - 1) * t.height) / 2;
+    // Pan bounds vs the open (viewport-fitted) image, not the thumb frame.
+    const scaledW = t.width * z;
+    const scaledH = t.height * z;
+    const maxX = Math.max(0, (scaledW - window.innerWidth) / 2);
+    const maxY = Math.max(0, (scaledH - window.innerHeight) / 2);
     return {
       x: Math.min(maxX, Math.max(-maxX, x)),
       y: Math.min(maxY, Math.max(-maxY, y)),
@@ -391,8 +413,10 @@ export function LightboxOverlay({ origin, onClosed }: LightboxOverlayProps) {
               : "default",
           width: "100%",
           height: "100%",
+          maxWidth: "none",
+          maxHeight: "none",
           display: "block",
-          objectFit: "cover",
+          objectFit: "contain",
           borderRadius: "inherit",
           userSelect: "none",
           WebkitUserSelect: "none",
@@ -402,8 +426,10 @@ export function LightboxOverlay({ origin, onClosed }: LightboxOverlayProps) {
       : {
           width: "100%",
           height: "100%",
+          maxWidth: "none",
+          maxHeight: "none",
           display: "block",
-          objectFit: "cover",
+          objectFit: "contain",
           borderRadius: "inherit",
           pointerEvents: "none",
         };

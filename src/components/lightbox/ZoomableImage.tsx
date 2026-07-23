@@ -50,10 +50,15 @@ export function ZoomableImage({
     const rect = img.getBoundingClientRect();
     if (rect.width < 2 || rect.height < 2) return;
 
-    const src =
-      img.currentSrc ||
-      img.src ||
-      (typeof imageProps.src === "string" ? imageProps.src : "");
+    const propSrc =
+      typeof imageProps.src === "string"
+        ? imageProps.src
+        : imageProps.src &&
+            typeof imageProps.src === "object" &&
+            "src" in imageProps.src
+          ? String(imageProps.src.src)
+          : "";
+    const src = propSrc || img.currentSrc || img.src;
     if (!src) return;
 
     const radiusHost = current.parentElement ?? current;
