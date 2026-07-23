@@ -1,8 +1,8 @@
-import Image from "next/image";
 import {
   CaseInsightCallout,
   type CaseInsightPoint,
 } from "@/components/case/CaseInsightCallout";
+import { ZoomableImage } from "@/components/lightbox";
 import { Reveal } from "@/components/layout/Reveal";
 import { cn } from "@/lib/utils";
 
@@ -55,6 +55,8 @@ export type CaseStoryStepContent = {
 
 type CaseStoryStepProps = CaseStoryStepContent & {
   className?: string;
+  /** Opt-in lightbox for story media. Default false. */
+  zoomable?: boolean;
 };
 
 function StoryParagraphs({
@@ -112,6 +114,7 @@ function StoryMedia({
   width,
   height,
   radius = 0,
+  zoomable = false,
 }: {
   src: string;
   srcMobile?: string;
@@ -119,6 +122,7 @@ function StoryMedia({
   width: number;
   height: number;
   radius?: 0 | 8 | 12;
+  zoomable?: boolean;
 }) {
   const mobileSrc = srcMobile ?? src;
   return (
@@ -129,7 +133,8 @@ function StoryMedia({
         radius === 12 && "rounded-xl",
       )}
     >
-      <Image
+      <ZoomableImage
+        zoomable={zoomable}
         src={mobileSrc}
         alt={alt}
         width={width}
@@ -138,7 +143,8 @@ function StoryMedia({
         sizes="100vw"
         unoptimized
       />
-      <Image
+      <ZoomableImage
+        zoomable={zoomable}
         src={src}
         alt={alt}
         width={width}
@@ -172,6 +178,7 @@ export function CaseStoryStep({
   mediaFirst = false,
   insight,
   className,
+  zoomable = false,
 }: CaseStoryStepProps) {
   const blockList = blocks ?? [];
   const blockAfterList = blocksAfter ?? [];
@@ -206,6 +213,7 @@ export function CaseStoryStep({
           width={imageWidth}
           height={imageHeight}
           radius={imageRadius}
+          zoomable={zoomable}
         />
       </Reveal>
     ) : null;

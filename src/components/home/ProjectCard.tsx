@@ -1,12 +1,8 @@
 import Image from "next/image";
+import { ProjectCardMedia } from "@/components/home/ProjectCardMedia";
 import { Button } from "@/components/ui/Button";
 import { IconArrowUpRight } from "@/components/ui/IconArrowUpRight";
-import { videoCropStyle } from "@/lib/figma-video";
-import type {
-  FigmaVideoTransform,
-  ProjectCardContent,
-  ProjectMeta,
-} from "@/types/content";
+import type { ProjectCardContent, ProjectMeta } from "@/types/content";
 import { cn } from "@/lib/utils";
 
 function MetaRow({ label, value }: ProjectMeta) {
@@ -22,51 +18,11 @@ function MetaRow({ label, value }: ProjectMeta) {
   );
 }
 
-function CardMedia({
-  image,
-  video,
-  videoTransform,
-  imageAlt,
-  sizes,
-}: {
-  image: string;
-  video?: string;
-  videoTransform?: FigmaVideoTransform;
-  imageAlt: string;
-  sizes: string;
-}) {
-  if (video) {
-    return (
-      <video
-        src={video}
-        aria-label={imageAlt}
-        autoPlay
-        loop
-        muted
-        playsInline
-        className={cn(
-          "absolute mix-blend-screen",
-          !videoTransform && "inset-0 h-full w-full object-cover",
-        )}
-        style={videoTransform ? videoCropStyle(videoTransform) : undefined}
-      />
-    );
-  }
-
-  return (
-    <Image
-      src={image}
-      alt={imageAlt}
-      fill
-      className="object-cover"
-      sizes={sizes}
-    />
-  );
-}
-
 type ProjectCardProps = {
   project: ProjectCardContent;
   className?: string;
+  /** Prefer for the first above-the-fold project card image. */
+  priority?: boolean;
 };
 
 /**
@@ -74,7 +30,11 @@ type ProjectCardProps = {
  * Desktop (1366): horizontal body | image
  * Mobile (402): vertical title row → image → meta → buttons
  */
-export function ProjectCard({ project, className }: ProjectCardProps) {
+export function ProjectCard({
+  project,
+  className,
+  priority = false,
+}: ProjectCardProps) {
   const {
     title,
     brandIcon,
@@ -116,12 +76,14 @@ export function ProjectCard({ project, className }: ProjectCardProps) {
 
       {/* Mobile image */}
       <div className="relative aspect-square w-full overflow-hidden bg-transparent md:hidden">
-        <CardMedia
+        <ProjectCardMedia
+          slot="mobile"
           image={image}
           video={video}
           videoTransform={videoTransformMobile ?? videoTransform}
           imageAlt={imageAlt}
           sizes="(max-width: 767px) 100vw, 522px"
+          priority={priority}
         />
       </div>
 
@@ -172,12 +134,14 @@ export function ProjectCard({ project, className }: ProjectCardProps) {
       {/* Desktop image — 16px right padding; ml-auto prevents leftover flex free space */}
       <div className="relative hidden shrink-0 md:ml-auto md:block md:pr-4">
         <div className="relative size-[522px] overflow-hidden rounded-2xl bg-transparent">
-          <CardMedia
+          <ProjectCardMedia
+            slot="desktop"
             image={image}
             video={video}
             videoTransform={videoTransform}
             imageAlt={imageAlt}
             sizes="522px"
+            priority={priority}
           />
         </div>
       </div>

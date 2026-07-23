@@ -18,9 +18,9 @@ export function ProjectCards({ className }: ProjectCardsProps) {
       className={cn("relative z-10 w-full -mt-20 md:mt-0", className)}
     >
       <div className="mx-auto flex w-full max-w-container-home flex-col gap-3 md:gap-[64px]">
-        {homeProjects.map((project) => (
+        {homeProjects.map((project, index) => (
           <Reveal key={project.slug}>
-            <ProjectCard project={project} />
+            <ProjectCard project={project} priority={index === 0} />
           </Reveal>
         ))}
       </div>

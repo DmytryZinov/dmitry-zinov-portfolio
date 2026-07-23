@@ -15,6 +15,8 @@ type CaseStorySectionProps = {
     mobile?: number;
     desktop?: number;
   };
+  /** Opt-in lightbox for story media. Default false. */
+  zoomable?: boolean;
   className?: string;
 };
 
@@ -26,6 +28,7 @@ export function CaseStorySection({
   lead,
   steps,
   stepsGap,
+  zoomable = false,
   className,
 }: CaseStorySectionProps) {
   const gapMob = stepsGap?.mobile ?? 80;
@@ -65,7 +68,7 @@ export function CaseStorySection({
                   {lead}
                 </h2>
               ) : null}
-              <CaseStoryStep {...step} />
+              <CaseStoryStep {...step} zoomable={zoomable} />
             </div>
           ))}
         </div>

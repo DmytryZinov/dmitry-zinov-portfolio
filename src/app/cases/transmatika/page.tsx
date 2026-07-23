@@ -90,6 +90,7 @@ export default function TransmatikaCasePage() {
             <CaseWorkStack
               items={transmatikaWork}
               gap={{ mobile: 64, desktop: 64 }}
+              zoomable
             />
           </Reveal>
 

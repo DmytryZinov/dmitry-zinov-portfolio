@@ -67,6 +67,7 @@ export default function RutubeDeepCasePage() {
           <CaseStorySection
             lead={rutubeCaseStory.lead}
             steps={rutubeCaseStory.steps}
+            zoomable
           />
 
           {/* Mobile: separate cards. Desktop: one shell (results inset + related). */}

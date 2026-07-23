@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { ZoomableImage } from "@/components/lightbox";
 import { cn } from "@/lib/utils";
 
 type CaseNarrativeCardProps = {
@@ -7,6 +7,8 @@ type CaseNarrativeCardProps = {
   imageAlt: string;
   imageWidth?: number;
   imageHeight?: number;
+  /** Opt-in lightbox for the narrative image. Default false. */
+  zoomable?: boolean;
   className?: string;
 };
 
@@ -20,6 +22,7 @@ export function CaseNarrativeCard({
   imageAlt,
   imageWidth = 716,
   imageHeight = 482,
+  zoomable = false,
   className,
 }: CaseNarrativeCardProps) {
   return (
@@ -35,7 +38,8 @@ export function CaseNarrativeCard({
           {body}
         </p>
         <div className="relative w-full overflow-hidden">
-          <Image
+          <ZoomableImage
+            zoomable={zoomable}
             src={imageSrc}
             alt={imageAlt}
             width={imageWidth}

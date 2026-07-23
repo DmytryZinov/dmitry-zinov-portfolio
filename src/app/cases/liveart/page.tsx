@@ -95,6 +95,7 @@ export default function LiveartCasePage() {
               items={liveartWork}
               gap={{ mobile: 64, desktop: 64 }}
               padding="compact"
+              zoomable
             />
           </Reveal>
 

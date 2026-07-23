@@ -62,6 +62,7 @@ export default function RutubeCasePage() {
               imageAlt={rutubeNarrative.imageAlt}
               imageWidth={rutubeNarrative.imageWidth}
               imageHeight={rutubeNarrative.imageHeight}
+              zoomable
             />
           </Reveal>
 
@@ -89,7 +90,7 @@ export default function RutubeCasePage() {
           </Reveal>
 
           <Reveal className="order-6" variant="fade">
-            <CaseWorkStack items={rutubeWork} />
+            <CaseWorkStack items={rutubeWork} zoomable />
           </Reveal>
 
           <Reveal className="order-7">

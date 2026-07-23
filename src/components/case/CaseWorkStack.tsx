@@ -22,6 +22,8 @@ type CaseWorkStackProps = {
    * `compact` — p-4 / md:p-6 (LiveArt desk 24).
    */
   padding?: "default" | "compact";
+  /** Opt-in lightbox for work screenshots. Default false. */
+  zoomable?: boolean;
   className?: string;
 };
 
@@ -32,6 +34,7 @@ export function CaseWorkStack({
   items,
   gap,
   padding = "default",
+  zoomable = false,
   className,
 }: CaseWorkStackProps) {
   const gapMob = gap?.mobile ?? 64;
@@ -56,7 +59,7 @@ export function CaseWorkStack({
         style={gapVars}
       >
         {items.map((item) => (
-          <CaseWorkBlock key={item.title} {...item} />
+          <CaseWorkBlock key={item.title} {...item} zoomable={zoomable} />
         ))}
       </div>
     </section>

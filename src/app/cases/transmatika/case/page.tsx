@@ -76,6 +76,7 @@ export default function TransmatikaDeepCasePage() {
           <CaseStorySection
             steps={transmatikaCaseStory.steps}
             stepsGap={transmatikaCaseStory.stepsGap}
+            zoomable
           />
 
           <Reveal className="md:hidden">

@@ -1,5 +1,5 @@
-import Image from "next/image";
 import type { CSSProperties } from "react";
+import { ZoomableImage } from "@/components/lightbox";
 import { cn } from "@/lib/utils";
 
 export type CaseWorkItem = {
@@ -21,6 +21,8 @@ export type CaseWorkItem = {
 
 type CaseWorkBlockProps = CaseWorkItem & {
   className?: string;
+  /** Opt-in lightbox for the work screenshot. Default false. */
+  zoomable?: boolean;
 };
 
 /**
@@ -41,6 +43,7 @@ export function CaseWorkBlock({
   imageRadiusDesktop = 0,
   imageRadiusMobile = 0,
   className,
+  zoomable = false,
 }: CaseWorkBlockProps) {
   const mediaVars = {
     "--work-r-m": `${imageRadiusMobile}px`,
@@ -67,7 +70,8 @@ export function CaseWorkBlock({
       >
         {hasMobileAsset ? (
           <>
-            <Image
+            <ZoomableImage
+              zoomable={zoomable}
               src={imageSrcMobile!}
               alt={imageAlt}
               width={mobW}
@@ -76,7 +80,8 @@ export function CaseWorkBlock({
               sizes="100vw"
               unoptimized
             />
-            <Image
+            <ZoomableImage
+              zoomable={zoomable}
               src={imageSrc}
               alt={imageAlt}
               width={imageWidth}
@@ -87,7 +92,8 @@ export function CaseWorkBlock({
             />
           </>
         ) : (
-          <Image
+          <ZoomableImage
+            zoomable={zoomable}
             src={imageSrc}
             alt={imageAlt}
             width={imageWidth}

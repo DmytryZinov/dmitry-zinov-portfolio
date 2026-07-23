@@ -76,6 +76,7 @@ export default function LiveartDeepCasePage() {
           <CaseStorySection
             steps={liveartCaseStory.steps}
             stepsGap={liveartCaseStory.stepsGap}
+            zoomable
           />
 
           <Reveal className="md:hidden">
