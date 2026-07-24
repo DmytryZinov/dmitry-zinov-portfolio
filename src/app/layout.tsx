@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { CustomCursor } from "@/components/layout/CustomCursor";
 import { LightboxProvider } from "@/components/lightbox";
+import { ScrollToTop } from "@/components/layout/ScrollToTop";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
 import { YandexMetrika } from "@/components/layout/YandexMetrika";
 import { getSiteUrl } from "@/lib/site-url";
@@ -37,6 +38,7 @@ export default function RootLayout({
         <LightboxProvider>
           <CustomCursor />
           <SmoothScroll>
+            <ScrollToTop />
             <main className="w-full">{children}</main>
           </SmoothScroll>
           <YandexMetrika />
