@@ -141,6 +141,16 @@ body {
   background-color: var(--raw-root-bg);
 }
 
+::selection {
+  background: #FF24FF;
+  color: #FFFFFF;
+}
+
+::-moz-selection {
+  background: #FF24FF;
+  color: #FFFFFF;
+}
+
 /* Desktop custom cursor — only while CustomCursor mounts & enables. */
 html.custom-cursor-active,
 html.custom-cursor-active * {
