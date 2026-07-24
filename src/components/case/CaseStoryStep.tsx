@@ -205,7 +205,7 @@ export function CaseStoryStep({
 
   const media =
     imageSrc != null ? (
-      <Reveal variant="image">
+      <Reveal variant="image" className="overflow-hidden">
         <StoryMedia
           src={imageSrc}
           srcMobile={imageSrcMobile}

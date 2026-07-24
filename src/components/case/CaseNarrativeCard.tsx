@@ -1,4 +1,5 @@
 import { ZoomableImage } from "@/components/lightbox";
+import { Reveal } from "@/components/layout/Reveal";
 import { cn } from "@/lib/utils";
 
 type CaseNarrativeCardProps = {
@@ -37,7 +38,7 @@ export function CaseNarrativeCard({
         <p className="text-[13px] leading-[17px] font-normal text-[#F7F7F7] md:text-[16px] md:leading-[22px] md:text-[#F7F7F7]/85">
           {body}
         </p>
-        <div className="relative w-full overflow-hidden">
+        <Reveal variant="image" className="relative w-full overflow-hidden">
           <ZoomableImage
             zoomable={zoomable}
             src={imageSrc}
@@ -48,7 +49,7 @@ export function CaseNarrativeCard({
             sizes="(max-width: 767px) 100vw, 716px"
             unoptimized
           />
-        </div>
+        </Reveal>
       </div>
     </section>
   );

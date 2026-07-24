@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { ProjectCardMedia } from "@/components/home/ProjectCardMedia";
+import { Reveal } from "@/components/layout/Reveal";
 import { Button } from "@/components/ui/Button";
 import { IconArrowUpRight } from "@/components/ui/IconArrowUpRight";
 import type { ProjectCardContent, ProjectMeta } from "@/types/content";
@@ -51,6 +52,20 @@ export function ProjectCard({
   } = project;
 
   const secondaryExternal = /^https?:/.test(secondaryHref);
+  const media = (
+    slot: "mobile" | "desktop",
+    transform?: typeof videoTransform,
+  ) => (
+    <ProjectCardMedia
+      slot={slot}
+      image={image}
+      video={video}
+      videoTransform={transform}
+      imageAlt={imageAlt}
+      sizes={slot === "mobile" ? "(max-width: 767px) 100vw, 522px" : "522px"}
+      priority={priority}
+    />
+  );
 
   return (
     <article
@@ -74,17 +89,15 @@ export function ProjectCard({
         />
       </div>
 
-      {/* Mobile image */}
+      {/* Mobile image — scale reveal for stills only (not video) */}
       <div className="relative aspect-square w-full overflow-hidden bg-transparent md:hidden">
-        <ProjectCardMedia
-          slot="mobile"
-          image={image}
-          video={video}
-          videoTransform={videoTransformMobile ?? videoTransform}
-          imageAlt={imageAlt}
-          sizes="(max-width: 767px) 100vw, 522px"
-          priority={priority}
-        />
+        {video ? (
+          media("mobile", videoTransformMobile ?? videoTransform)
+        ) : (
+          <Reveal variant="image" className="absolute inset-0">
+            {media("mobile")}
+          </Reveal>
+        )}
       </div>
 
       {/* Body */}
@@ -134,15 +147,13 @@ export function ProjectCard({
       {/* Desktop image — 16px right padding; ml-auto prevents leftover flex free space */}
       <div className="relative hidden shrink-0 md:ml-auto md:block md:pr-4">
         <div className="relative size-[522px] overflow-hidden rounded-2xl bg-transparent">
-          <ProjectCardMedia
-            slot="desktop"
-            image={image}
-            video={video}
-            videoTransform={videoTransform}
-            imageAlt={imageAlt}
-            sizes="522px"
-            priority={priority}
-          />
+          {video ? (
+            media("desktop", videoTransform)
+          ) : (
+            <Reveal variant="image" className="absolute inset-0">
+              {media("desktop")}
+            </Reveal>
+          )}
         </div>
       </div>
     </article>

@@ -14,7 +14,7 @@ export type RevealVariant =
   | "subtle"
   | "case"
   | "image"
-  /** @deprecated use `image` */
+  /** Opacity-only shell for mixed text+media sections. */
   | "fade";
 
 type RevealProps = {
@@ -23,7 +23,8 @@ type RevealProps = {
    * `default` — sections (24px / 800ms)
    * `subtle` — small blocks (12px / 550ms)
    * `case` — story copy (8px / ~550ms)
-   * `image` — media opacity only
+   * `image` — media scale reveal (0.97 → 1, 750ms)
+   * `fade` — opacity only (section shells)
    */
   variant?: RevealVariant;
   /** Manual delay in ms (no auto-stagger). */
@@ -42,7 +43,8 @@ function prefersReducedMotion() {
 }
 
 function resolveVariantClass(variant: RevealVariant) {
-  if (variant === "fade" || variant === "image") return "reveal--image";
+  if (variant === "image") return "reveal-image";
+  if (variant === "fade") return "reveal--fade";
   return `reveal--${variant}`;
 }
 
@@ -100,6 +102,7 @@ export function Reveal({
         "reveal",
         resolveVariantClass(variant),
         shown && "is-revealed",
+        shown && variant === "image" && "is-visible",
         className,
       )}
       style={{

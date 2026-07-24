@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import { ZoomableImage } from "@/components/lightbox";
+import { Reveal } from "@/components/layout/Reveal";
 import { cn } from "@/lib/utils";
 
 export type CaseWorkItem = {
@@ -64,7 +65,8 @@ export function CaseWorkBlock({
           {body}
         </p>
       </div>
-      <div
+      <Reveal
+        variant="image"
         className="relative w-full min-w-0 overflow-hidden rounded-[var(--work-r-m)] md:rounded-[var(--work-r-d)]"
         style={mediaVars}
       >
@@ -103,7 +105,7 @@ export function CaseWorkBlock({
             unoptimized
           />
         )}
-      </div>
+      </Reveal>
     </article>
   );
 }

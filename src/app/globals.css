@@ -206,16 +206,35 @@ html.custom-cursor-active * {
   transition-duration: 550ms;
 }
 
-/* Large media — opacity only (museum-style) */
-.reveal--image,
+/* Large media — opacity only (section shells with mixed content) */
 .reveal--fade {
   transform: none;
   transition-duration: 600ms;
 }
 
-.reveal.is-revealed {
+/*
+ * Premium image scale reveal — media only.
+ * Desktop: subtle scale + lift. Mobile: lift only (no scale).
+ */
+.reveal-image,
+.reveal--image {
+  transform: translate3d(0, 8px, 0) scale(0.97);
+  transition-duration: 750ms;
+}
+
+@media (max-width: 767px) {
+  .reveal-image,
+  .reveal--image {
+    transform: translate3d(0, 8px, 0);
+    transition-duration: 700ms;
+  }
+}
+
+.reveal.is-revealed,
+.reveal-image.is-visible,
+.reveal--image.is-visible {
   opacity: 1;
-  transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0) scale(1);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -223,6 +242,7 @@ html.custom-cursor-active * {
   .reveal--default,
   .reveal--subtle,
   .reveal--case,
+  .reveal-image,
   .reveal--image,
   .reveal--fade {
     opacity: 1;
