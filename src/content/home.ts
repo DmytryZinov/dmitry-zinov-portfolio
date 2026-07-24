@@ -10,7 +10,7 @@ export const homeHero = {
   name: "Дмитрий Зинов",
   year: "2026",
   headline:
-    "Продуктовый дизайнер.\nПроектирую сервисы, которые приносят выручку\nи масштабируются",
+    "Продуктовый дизайнер\nПроектирую сервисы, которые приносят выручку\nи масштабируются",
   focus: "Growth, monetization, TMS, финтех, B2B SaaS",
   portrait: {
     src: "/images/hero/portrait.png",
