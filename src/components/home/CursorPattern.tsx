@@ -19,7 +19,7 @@ const REVEAL_SIZE = 400;
 const CELL = 96;
 
 /** Stroke weight for closed grid cells (mask geometry). */
-const STROKE = 1.5;
+const STROKE = 1.05;
 
 /** Soft mesh blur (Home). */
 const MESH_BLUR_PX = 38;
