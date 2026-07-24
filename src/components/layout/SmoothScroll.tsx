@@ -12,10 +12,10 @@ import type { LenisOptions } from "lenis";
  * - prefers-reduced-motion: Lenis not mounted
  */
 const lenisOptions = {
-  // Soft settle without floaty lag (Lenis default 0.1).
-  lerp: 0.1,
-  // Slightly under 1.0 — less “jump”, still responsive.
-  wheelMultiplier: 0.9,
+  // Higher than default 0.1 → catches target sooner, less “coast” after release.
+  lerp: 0.14,
+  // Slightly slower wheel travel so motion stays controlled, not rushed.
+  wheelMultiplier: 0.78,
   smoothWheel: true,
   // Keep mobile / touch-tablet gesture native (no rubber fake-scroll).
   syncTouch: false,
