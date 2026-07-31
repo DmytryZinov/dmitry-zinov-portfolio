@@ -96,7 +96,8 @@ const sizeClass: Record<ButtonSize, string> = {
    */
   card: "h-12 shrink-0 px-6 text-body leading-[22px] justify-center",
   /** Home project card pair — equal width in a row; height locked. */
-  cardMobile: "h-10 min-h-10 shrink-0 flex-1 px-6 text-body-sm leading-[17px] justify-center",
+  /** Home project-card mobile CTA — Figma 14/17 Regular, h48 via ProjectCard overrides */
+  cardMobile: "h-10 min-h-10 shrink-0 flex-1 px-6 text-sm leading-[17px] justify-center",
 };
 
 function isLink(props: ButtonProps): props is ButtonAsLink {

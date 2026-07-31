@@ -122,12 +122,12 @@ export function Hero({ className }: HeroProps) {
                 aria-hidden
                 priority
               />
-              <div className="flex flex-col">
-                {/* Medium stand-in: Regular @ 500 + hairline stroke (550+ = full synthetic bold). */}
-                <h1 className="whitespace-pre-line text-h1-mobile font-medium leading-h1-mobile text-white [-webkit-text-stroke:0.08px_currentColor] md:text-h1 md:leading-h1">
+              <div className="flex w-full max-w-container-home flex-col">
+                {/* Figma: Suisse SemiBold 28/32 (−0.15) mobile · 36/44 (−0.3) desktop */}
+                <h1 className="w-full whitespace-pre-line text-h1-mobile font-semibold leading-h1-mobile tracking-[-0.15px] text-white md:text-h1 md:leading-h1 md:tracking-[-0.3px] md:text-surface">
                   {headline}
                 </h1>
-                <p className="text-h1-mobile font-medium leading-h1-mobile text-hero-muted [-webkit-text-stroke:0.08px_currentColor] md:text-h1 md:leading-h1">
+                <p className="w-full text-h1-mobile font-semibold leading-h1-mobile tracking-[-0.15px] text-hero-muted md:text-h1 md:leading-h1 md:tracking-[-0.3px]">
                   {focus}
                 </p>
               </div>

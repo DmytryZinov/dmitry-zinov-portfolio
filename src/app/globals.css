@@ -72,8 +72,8 @@
   html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    /* Suisse: only Regular is loaded; 500–700 synthesize from it. */
-    font-synthesis: weight;
+    /* Real Suisse weight files are loaded; never fake-bold Regular. */
+    font-synthesis: none;
     /* Kill stray horizontal jank; keep native vertical scroll. */
     overflow-x: clip;
     /* Prefer dark UA chrome (avoids light system scrollbar flash). */

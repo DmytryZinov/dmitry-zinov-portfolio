@@ -11,7 +11,7 @@ export const homeHero = {
   year: "2026",
   headline:
     "Продуктовый дизайнер\nПроектирую сервисы, которые приносят выручку\nи масштабируются",
-  focus: "Growth, monetization, TMS, fintech, B2B SaaS",
+  focus: "Growth, monetization, TMS, финтех, B2B SaaS",
   portrait: {
     src: "/images/hero/portrait.png",
     alt: "Дмитрий Зинов",
@@ -48,6 +48,16 @@ export const homeProjects: ProjectCardContent[] = [
     brandIcon: "/icons/brands/rutube.png",
     image: "/cases/rutube/card.png",
     imageAlt: "RUTUBE Studio — монетизация",
+    subtitle:
+      "Система подключения и управления монетизацией для авторов",
+    metrics: [
+      { value: "+81%", label: "конверсия заявок на монетизацию" },
+      { value: "−75%", label: "отказов в заявках после редизайна" },
+      { value: "х12", label: "авторов с монетизацией" },
+    ],
+    role: "Старший продуктовый дизайнер",
+    contribution:
+      "Редизайн 4 типов заявок на монетизацию, внедрил проверку авторства контента, причастен к изменениям концепции и методов монетизации контента и многому другому",
     meta: [
       {
         label: "Роль",
@@ -77,6 +87,15 @@ export const homeProjects: ProjectCardContent[] = [
     brandIcon: "/icons/brands/transmatika.png",
     image: "/cases/transmatika/card.png",
     imageAlt: "Transmatika — TMS",
+    subtitle: "TMS для управления автопарком и топливными расходами",
+    metrics: [
+      { value: "0→45%", label: "количество партнёрских заправок" },
+      { value: "— 3%", label: "расходов на топливо у клиентов" },
+      { value: "х2,2", label: "использование партнёрских топливных карт" },
+    ],
+    role: "Ведущий продуктовый дизайнер (IC)",
+    contribution:
+      "Настроил дизайн-процессы, спроектировал с нуля платформу для автоматизации процессов компаний-грузоперевозчиков и мобильное приложение для оплаты услуг на АЗС",
     meta: [
       {
         label: "Роль",
@@ -117,6 +136,15 @@ export const homeProjects: ProjectCardContent[] = [
       [0, 0.7204724550247192, 0.13976377248764038],
     ],
     imageAlt: "LiveArt — marketplace",
+    subtitle: "Платформа для инвестиций и торговли искусством",
+    metrics: [
+      { value: "+4%", label: "количество заявок на торговлю" },
+      { value: "— 17%", label: "отказы в процессе сделки" },
+      { value: "+38%", label: "завершение регистрации" },
+    ],
+    role: "Старший продуктовый дизайнер",
+    contribution:
+      "Защитил перед инвесторами концепт торгового терминала, Решал проблемы с флоу торговли и авторизации. Так же занимался редизайном, внедрял дизайн-систему",
     meta: [
       {
         label: "Роль",
