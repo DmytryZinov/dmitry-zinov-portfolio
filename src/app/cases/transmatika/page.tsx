@@ -41,8 +41,8 @@ export default function TransmatikaCasePage() {
           />
         </div>
 
-        {/* Column 780; nav→Header 32 (Figma y96−64). */}
-        <div className="mx-auto flex w-full max-w-container-case flex-col gap-3 md:mt-8 md:gap-6">
+        {/* Column 960; nav→Header 32 (Figma y96−64). */}
+        <div className="mx-auto flex w-full max-w-[960px] flex-col gap-3 md:mt-8 md:gap-6">
           <CaseHeroHeader
             title={transmatikaHero.title}
             subtitle={transmatikaHero.subtitle}

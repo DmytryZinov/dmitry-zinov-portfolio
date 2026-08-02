@@ -20,11 +20,12 @@ type CaseDetailCtaProps = {
   thumbSrcMobile?: string;
   thumbAlt?: string;
   /**
-   * `wide` — RUTUBE desk 351×211 r0; mobile 371×371 r16.
+   * `wide` — legacy 780 column: desk 351×211 @ right 39; mobile 371×371 r16.
+   * `wide960` — RUTUBE hub 960: desk 351×211 @ left 577; desc 16/20; mobile unchanged.
    * `square` — Transmatika: desk clip 359×222 r~11; mobile 370×370 r~11.
    * `portrait` — LiveArt: desk 326×277 @ (407,−23) r0; mobile 371×250 r0.
    */
-  thumbVariant?: "wide" | "square" | "portrait";
+  thumbVariant?: "wide" | "wide960" | "square" | "portrait";
   /** Default `image`. LiveArt hub uses `video` with shared `card.mp4`. */
   mediaType?: "image" | "video";
   /** Video source when `mediaType="video"`. */
@@ -105,8 +106,9 @@ function CtaVideo({
 }
 
 /**
- * Detail CTA — Figma desktop absolute layout 780×231; mobile vertical pad 16 / gap 20.
- * `thumbVariant="wide"` (default): desk 351×211 @390,20 r0; mob 371×371 r16.
+ * Detail CTA — Figma desktop absolute layout; mobile vertical pad 16 / gap 20.
+ * `thumbVariant="wide"` (default): desk 351×211 @ right 39; mob 371×371 r16.
+ * `thumbVariant="wide960"`: RUTUBE hub 960 — thumb @ left 577; desc 16/20.
  * `thumbVariant="square"`: desk clip 359×222 @398,9 r~11; mob square r~11.
  * `thumbVariant="portrait"`: desk 326×277 @407,−23 r0; mob 371×250 r0 (LiveArt).
  */
@@ -130,6 +132,7 @@ export function CaseDetailCta({
   const mobileThumb = thumbSrcMobile ?? thumbSrc;
   const isSquare = thumbVariant === "square";
   const isPortrait = thumbVariant === "portrait";
+  const isWide960 = thumbVariant === "wide960";
   const isVideo = mediaType === "video" && Boolean(videoSrc);
   const mobVideoTransform = videoTransformMobile ?? videoTransform;
 
@@ -212,7 +215,14 @@ export function CaseDetailCta({
           >
             {title}
           </h2>
-          <p className="text-[14px] leading-[18px] font-normal text-[#F7F7F7]/60">
+          <p
+            className={cn(
+              "font-normal text-[#F7F7F7]/60",
+              isWide960
+                ? "text-[16px] leading-5"
+                : "text-[14px] leading-[18px]",
+            )}
+          >
             {description}
           </p>
         </div>
@@ -252,6 +262,18 @@ export function CaseDetailCta({
               width={359}
               height={222}
               className="h-full w-full object-cover object-center"
+              unoptimized
+            />
+          </div>
+        ) : isWide960 ? (
+          /* Figma RUTUBE hub 960 — 351×211 @ (577, 20), r0. */
+          <div className="absolute top-5 left-[577px] h-[211px] w-[351px] overflow-hidden">
+            <Image
+              src={thumbSrc!}
+              alt={thumbAlt}
+              width={351}
+              height={211}
+              className="h-full w-full"
               unoptimized
             />
           </div>

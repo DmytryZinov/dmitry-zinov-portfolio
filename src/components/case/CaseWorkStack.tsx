@@ -24,6 +24,18 @@ type CaseWorkStackProps = {
   padding?: "default" | "compact";
   /** Opt-in lightbox for work screenshots. Default false. */
   zoomable?: boolean;
+  /**
+   * Desktop body size for all blocks. Default `sm` (14/18).
+   * RUTUBE hub passes `md` (16/20).
+   */
+  bodySizeDesktop?: "sm" | "md";
+  /** Desktop `sizes` hint for work media. Default `716px`. */
+  desktopMediaSizes?: string;
+  /**
+   * Gap between text and media in each block.
+   * Default `20`. RUTUBE hub passes `24`.
+   */
+  mediaGap?: 20 | 24;
   className?: string;
 };
 
@@ -35,6 +47,9 @@ export function CaseWorkStack({
   gap,
   padding = "default",
   zoomable = false,
+  bodySizeDesktop = "sm",
+  desktopMediaSizes = "716px",
+  mediaGap = 20,
   className,
 }: CaseWorkStackProps) {
   const gapMob = gap?.mobile ?? 64;
@@ -59,7 +74,14 @@ export function CaseWorkStack({
         style={gapVars}
       >
         {items.map((item) => (
-          <CaseWorkBlock key={item.title} {...item} zoomable={zoomable} />
+          <CaseWorkBlock
+            key={item.title}
+            {...item}
+            zoomable={zoomable}
+            bodySizeDesktop={bodySizeDesktop}
+            desktopMediaSizes={desktopMediaSizes}
+            mediaGap={mediaGap}
+          />
         ))}
       </div>
     </section>

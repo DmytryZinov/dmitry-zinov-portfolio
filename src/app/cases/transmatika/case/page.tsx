@@ -39,7 +39,7 @@ export default function TransmatikaDeepCasePage() {
           />
         </div>
 
-        <div className="mx-auto flex w-full max-w-container-case flex-col gap-3 md:mt-8 md:gap-6">
+        <div className="mx-auto flex w-full max-w-[960px] flex-col gap-3 md:mt-8 md:gap-6">
           <CaseHeroHeader
             variant="deep"
             title={transmatikaCaseHero.title}

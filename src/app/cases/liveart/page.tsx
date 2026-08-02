@@ -41,7 +41,7 @@ export default function LiveartCasePage() {
           />
         </div>
 
-        <div className="mx-auto flex w-full max-w-container-case flex-col gap-3 md:mt-8 md:gap-6">
+        <div className="mx-auto flex w-full max-w-[960px] flex-col gap-3 md:mt-8 md:gap-6">
           <CaseHeroHeader
             title={liveartHero.title}
             subtitle={liveartHero.subtitle}

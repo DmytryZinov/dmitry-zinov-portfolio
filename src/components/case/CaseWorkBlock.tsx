@@ -24,11 +24,23 @@ type CaseWorkBlockProps = CaseWorkItem & {
   className?: string;
   /** Opt-in lightbox for the work screenshot. Default false. */
   zoomable?: boolean;
+  /**
+   * Desktop body size. Default `sm` (14/18) for other cases.
+   * RUTUBE hub Figma uses `md` (16/20).
+   */
+  bodySizeDesktop?: "sm" | "md";
+  /** `sizes` for desktop media. Default `716px`. */
+  desktopMediaSizes?: string;
+  /**
+   * Gap between text stack and media.
+   * Default `20` (`gap-5`). RUTUBE hub Figma uses `24`.
+   */
+  mediaGap?: 20 | 24;
 };
 
 /**
  * Work story — title 22/28 Bold (desk) / 20/26 (mob);
- * body 14/18 @60% (desk) / 13/17 @60% (mob); title↔body gap 4.
+ * body 14/18 @60% (desk, default) / 13/17 @60% (mob); title↔body gap 4.
  * Media always spans the full content width (`w-full`); radii are optional.
  */
 export function CaseWorkBlock({
@@ -45,6 +57,9 @@ export function CaseWorkBlock({
   imageRadiusMobile = 0,
   className,
   zoomable = false,
+  bodySizeDesktop = "sm",
+  desktopMediaSizes = "716px",
+  mediaGap = 20,
 }: CaseWorkBlockProps) {
   const mediaVars = {
     "--work-r-m": `${imageRadiusMobile}px`,
@@ -54,14 +69,28 @@ export function CaseWorkBlock({
   const hasMobileAsset = Boolean(imageSrcMobile);
   const mobW = imageWidthMobile ?? imageWidth;
   const mobH = imageHeightMobile ?? imageHeight;
+  const deskSizes = `(max-width: 767px) 100vw, ${desktopMediaSizes}`;
 
   return (
-    <article className={cn("flex w-full min-w-0 flex-col gap-5", className)}>
+    <article
+      className={cn(
+        "flex w-full min-w-0 flex-col",
+        mediaGap === 24 ? "gap-6" : "gap-5",
+        className,
+      )}
+    >
       <div className="flex flex-col gap-1">
         <h3 className="text-[20px] leading-[26px] font-bold text-[#F7F7F7] md:text-[22px] md:leading-7">
           {title}
         </h3>
-        <p className="text-[13px] leading-[17px] font-normal text-[#F7F7F7]/60 md:text-[14px] md:leading-[18px]">
+        <p
+          className={cn(
+            "text-[13px] leading-[17px] font-normal text-[#F7F7F7]/60",
+            bodySizeDesktop === "md"
+              ? "md:text-[16px] md:leading-5"
+              : "md:text-[14px] md:leading-[18px]",
+          )}
+        >
           {body}
         </p>
       </div>
@@ -89,7 +118,7 @@ export function CaseWorkBlock({
               width={imageWidth}
               height={imageHeight}
               className="hidden h-auto w-full max-w-none md:block"
-              sizes="716px"
+              sizes={desktopMediaSizes}
               unoptimized
             />
           </>
@@ -101,7 +130,7 @@ export function CaseWorkBlock({
             width={imageWidth}
             height={imageHeight}
             className="block h-auto w-full max-w-none"
-            sizes="(max-width: 767px) 100vw, 716px"
+            sizes={deskSizes}
             unoptimized
           />
         )}

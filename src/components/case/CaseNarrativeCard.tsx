@@ -1,15 +1,33 @@
-import { ZoomableImage } from "@/components/lightbox";
+import { CaseNarrativeMedia } from "@/components/case/CaseNarrativeMedia";
 import { Reveal } from "@/components/layout/Reveal";
 import { cn } from "@/lib/utils";
 
 type CaseNarrativeCardProps = {
   body: string;
-  imageSrc: string;
+  /**
+   * Image source (default media). For `mediaType="video"` used as poster /
+   * error fallback when provided.
+   */
+  imageSrc?: string;
   imageAlt: string;
   imageWidth?: number;
   imageHeight?: number;
-  /** Opt-in lightbox for the narrative image. Default false. */
+  /**
+   * Desktop `sizes` hint. Default `716px` (legacy case column).
+   * RUTUBE hub passes `896px`.
+   */
+  desktopMediaSizes?: string;
+  /** Opt-in lightbox for the narrative image. Default false. Ignored for video. */
   zoomable?: boolean;
+  /** Default `image`. RUTUBE hub before/after uses `video`. */
+  mediaType?: "image" | "video";
+  /** Video source when `mediaType="video"`. */
+  videoSrc?: string;
+  /**
+   * Video box sizing. Default `frame` (Figma width/height + cover).
+   * RUTUBE hub uses `intrinsic` so the box matches the MP4 aspect.
+   */
+  videoLayout?: "frame" | "intrinsic";
   className?: string;
 };
 
@@ -23,7 +41,11 @@ export function CaseNarrativeCard({
   imageAlt,
   imageWidth = 716,
   imageHeight = 482,
+  desktopMediaSizes = "716px",
   zoomable = false,
+  mediaType = "image",
+  videoSrc,
+  videoLayout = "frame",
   className,
 }: CaseNarrativeCardProps) {
   return (
@@ -39,15 +61,16 @@ export function CaseNarrativeCard({
           {body}
         </p>
         <Reveal variant="image" className="relative w-full overflow-hidden">
-          <ZoomableImage
-            zoomable={zoomable}
-            src={imageSrc}
+          <CaseNarrativeMedia
+            mediaType={mediaType}
+            imageSrc={imageSrc}
+            videoSrc={videoSrc}
             alt={imageAlt}
             width={imageWidth}
             height={imageHeight}
-            className="h-auto w-full"
-            sizes="(max-width: 767px) 100vw, 716px"
-            unoptimized
+            desktopMediaSizes={desktopMediaSizes}
+            zoomable={zoomable}
+            videoLayout={videoLayout}
           />
         </Reveal>
       </div>

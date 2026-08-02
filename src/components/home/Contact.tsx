@@ -6,13 +6,13 @@ import { homeContact } from "@/content/home";
 import { cn } from "@/lib/utils";
 
 type ContactProps = {
-  /** Home column 1150 vs case column 780. */
+  /** Home column 1150 vs case column 960. */
   width?: "home" | "case";
   className?: string;
 };
 
 /**
- * Contact CTA — Figma `contact` (Home + deep case).
+ * Contact CTA — Figma `contact` (Home + case pages).
  * Width switches container only; content stays shared `homeContact`.
  */
 export function Contact({ width = "home", className }: ContactProps) {
@@ -31,10 +31,10 @@ export function Contact({ width = "home", className }: ContactProps) {
         <div
           className={cn(
             "mx-auto flex w-full flex-col",
-            width === "case" ? "max-w-container-case" : "max-w-container-home",
+            width === "case" ? "max-w-[960px]" : "max-w-container-home",
             "gap-6 rounded-[20px] bg-ink px-4 py-5",
-            width === "home" &&
-              "shadow-[inset_0_0_0_1px_rgba(255,255,255,0.03)]",
+            /* Figma contact: 1px inside white @ 3% (home + case). */
+            "shadow-[inset_0_0_0_1px_rgba(255,255,255,0.03)]",
             "md:h-[314px] md:gap-10 md:rounded-[32px] md:p-8",
           )}
         >
@@ -56,8 +56,25 @@ export function Contact({ width = "home", className }: ContactProps) {
               className="size-[42px] shrink-0 rounded-[12px] object-cover"
             />
             <div className="flex flex-col gap-0.5">
-              <p className="text-body leading-[22px] text-surface">{name}</p>
-              <p className="text-caption-lg leading-[18px] text-white/60">
+              {/* Case mobile: Figma 13/17 + 12/16; desk / home keep 16/22 + 14/18. */}
+              <p
+                className={cn(
+                  "text-surface",
+                  width === "case"
+                    ? "text-[13px] leading-[17px] md:text-body md:leading-[22px]"
+                    : "text-body leading-[22px]",
+                )}
+              >
+                {name}
+              </p>
+              <p
+                className={cn(
+                  "text-white/60",
+                  width === "case"
+                    ? "text-[12px] leading-4 md:text-caption-lg md:leading-[18px]"
+                    : "text-caption-lg leading-[18px]",
+                )}
+              >
                 {role}
               </p>
             </div>

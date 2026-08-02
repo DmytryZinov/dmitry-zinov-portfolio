@@ -50,10 +50,28 @@ type CaseHeroHeaderProps = {
     mobile?: number;
     desktop?: number;
   };
+  /**
+   * Desktop media layout.
+   * `fill` — image covers the header (default; other cases).
+   * `offset` — Figma RUTUBE hub: gradient underlay + image at offset (780 @ x=180).
+   */
+  desktopMediaLayout?: "fill" | "offset";
+  /** Desktop image width when `desktopMediaLayout="offset"`. Default 780. */
+  desktopImageWidth?: number;
+  /** Desktop image left offset when `desktopMediaLayout="offset"`. Default 180. */
+  desktopImageOffsetX?: number;
+  /**
+   * Desktop underlay when `desktopMediaLayout="offset"`.
+   * Default matches Figma Header gradient (#24262B → #1F3108).
+   */
+  desktopGradient?: string;
   className?: string;
   /** Optional decor / overlays; backgrounds stay image fills. */
   children?: ReactNode;
 };
+
+const DEFAULT_OFFSET_GRADIENT =
+  "linear-gradient(95deg, #24262B 0%, #1F3108 100%)";
 
 const VARIANT_DEFAULTS = {
   hub: {
@@ -94,12 +112,17 @@ export function CaseHeroHeader({
   titleInset,
   titleMaxWidth,
   titleGap,
+  desktopMediaLayout = "fill",
+  desktopImageWidth = 780,
+  desktopImageOffsetX = 180,
+  desktopGradient = DEFAULT_OFFSET_GRADIENT,
   className,
   children,
 }: CaseHeroHeaderProps) {
   const mobileSrc = backgroundSrcMobile ?? backgroundSrc;
   const mobileSubtitle = subtitleMobile ?? subtitle;
   const defaults = VARIANT_DEFAULTS[variant];
+  const isOffsetDesktop = desktopMediaLayout === "offset";
 
   const hMob = heightMobile ?? defaults.heightMobile;
   const hDesk = heightDesktop ?? defaults.heightDesktop;
@@ -129,6 +152,8 @@ export function CaseHeroHeader({
     "--case-title-max-d": `${titleMaxDesk}px`,
     "--case-title-gap-m": `${titleGapMob}px`,
     "--case-title-gap-d": `${titleGapDesk}px`,
+    "--case-hero-img-w": `${desktopImageWidth}px`,
+    "--case-hero-img-x": `${desktopImageOffsetX}px`,
   } as CSSProperties;
 
   return (
@@ -157,20 +182,35 @@ export function CaseHeroHeader({
         />
       </div>
 
-      {/* Desktop background */}
+      {/* Desktop background — fill (default) or offset+gradient (RUTUBE hub). */}
       <div
         className="pointer-events-none absolute inset-0 z-0 hidden md:block"
         aria-hidden
+        style={isOffsetDesktop ? { backgroundImage: desktopGradient } : undefined}
       >
-        <Image
-          src={backgroundSrc}
-          alt={backgroundAlt}
-          fill
-          priority
-          className="object-cover object-center"
-          sizes="780px"
-          unoptimized
-        />
+        {isOffsetDesktop ? (
+          <div className="absolute inset-y-0 left-[var(--case-hero-img-x)] w-[var(--case-hero-img-w)] overflow-hidden">
+            <Image
+              src={backgroundSrc}
+              alt={backgroundAlt}
+              fill
+              priority
+              className="object-cover object-center"
+              sizes={`${desktopImageWidth}px`}
+              unoptimized
+            />
+          </div>
+        ) : (
+          <Image
+            src={backgroundSrc}
+            alt={backgroundAlt}
+            fill
+            priority
+            className="object-cover object-center"
+            sizes="780px"
+            unoptimized
+          />
+        )}
       </div>
 
       <CaseBackButton
