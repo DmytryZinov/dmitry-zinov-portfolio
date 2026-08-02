@@ -104,7 +104,6 @@ export default function RutubeCasePage() {
               zoomable
               bodySizeDesktop="md"
               desktopMediaSizes="896px"
-              mediaGap={24}
             />
           </Reveal>
 

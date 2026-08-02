@@ -33,7 +33,7 @@ type CaseWorkBlockProps = CaseWorkItem & {
   desktopMediaSizes?: string;
   /**
    * Gap between text stack and media.
-   * Default `20` (`gap-5`). RUTUBE hub Figma uses `24`.
+   * Default `24` (`gap-6`). Pass `20` only for legacy overrides.
    */
   mediaGap?: 20 | 24;
 };
@@ -59,7 +59,7 @@ export function CaseWorkBlock({
   zoomable = false,
   bodySizeDesktop = "sm",
   desktopMediaSizes = "716px",
-  mediaGap = 20,
+  mediaGap = 24,
 }: CaseWorkBlockProps) {
   const mediaVars = {
     "--work-r-m": `${imageRadiusMobile}px`,
@@ -75,7 +75,7 @@ export function CaseWorkBlock({
     <article
       className={cn(
         "flex w-full min-w-0 flex-col",
-        mediaGap === 24 ? "gap-6" : "gap-5",
+        mediaGap === 20 ? "gap-5" : "gap-6",
         className,
       )}
     >

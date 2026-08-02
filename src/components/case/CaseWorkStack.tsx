@@ -33,7 +33,7 @@ type CaseWorkStackProps = {
   desktopMediaSizes?: string;
   /**
    * Gap between text and media in each block.
-   * Default `20`. RUTUBE hub passes `24`.
+   * Default `24`. Pass `20` only for legacy overrides.
    */
   mediaGap?: 20 | 24;
   className?: string;
@@ -49,7 +49,7 @@ export function CaseWorkStack({
   zoomable = false,
   bodySizeDesktop = "sm",
   desktopMediaSizes = "716px",
-  mediaGap = 20,
+  mediaGap = 24,
   className,
 }: CaseWorkStackProps) {
   const gapMob = gap?.mobile ?? 64;

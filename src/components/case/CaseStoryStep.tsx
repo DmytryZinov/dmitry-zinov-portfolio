@@ -57,6 +57,11 @@ type CaseStoryStepProps = CaseStoryStepContent & {
   className?: string;
   /** Opt-in lightbox for story media. Default false. */
   zoomable?: boolean;
+  /**
+   * Gap between copy stack and media (article axis).
+   * Default desk `24`; mobile stays `16` (`gap-4`).
+   */
+  mediaGap?: 20 | 24;
 };
 
 function StoryParagraphs({
@@ -179,6 +184,7 @@ export function CaseStoryStep({
   insight,
   className,
   zoomable = false,
+  mediaGap = 24,
 }: CaseStoryStepProps) {
   const blockList = blocks ?? [];
   const blockAfterList = blocksAfter ?? [];
@@ -260,7 +266,13 @@ export function CaseStoryStep({
     ) : null;
 
   return (
-    <article className={cn("flex flex-col gap-4 md:gap-5", className)}>
+    <article
+      className={cn(
+        "flex flex-col gap-4",
+        mediaGap === 20 ? "md:gap-5" : "md:gap-6",
+        className,
+      )}
+    >
       {mediaFirst ? (
         <>
           {media}
