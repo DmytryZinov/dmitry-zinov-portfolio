@@ -23,7 +23,7 @@ type CaseDetailCtaProps = {
    * `wide` — legacy 780 column: desk 351×211 @ right 39; mobile 371×371 r16.
    * `wide960` — RUTUBE hub 960: desk 351×211 @ left 577; desc 16/20; mobile unchanged.
    * `square` — Transmatika: desk clip 359×222 r~11; mobile 370×370 r~11.
-   * `portrait` — LiveArt: desk 326×277 @ (407,−23) r0; mobile 371×250 r0.
+   * `portrait` — LiveArt: desk 326×277 @ (602,−23) r0; mobile 371×250 r0.
    */
   thumbVariant?: "wide" | "wide960" | "square" | "portrait";
   /** Default `image`. LiveArt hub uses `video` with shared `card.mp4`. */
@@ -110,7 +110,7 @@ function CtaVideo({
  * `thumbVariant="wide"` (default): desk 351×211 @ right 39; mob 371×371 r16.
  * `thumbVariant="wide960"`: RUTUBE hub 960 — thumb @ left 577; desc 16/20.
  * `thumbVariant="square"`: desk clip 359×222 @398,9 r~11; mob square r~11.
- * `thumbVariant="portrait"`: desk 326×277 @407,−23 r0; mob 371×250 r0 (LiveArt).
+ * `thumbVariant="portrait"`: desk 326×277 @602,−23 r0; mob 371×250 r0 (LiveArt).
  */
 export function CaseDetailCta({
   title,
@@ -234,8 +234,8 @@ export function CaseDetailCta({
         />
 
         {isPortrait ? (
-          /* Figma LiveArt desk 326×277 @ (407, −23), r0. */
-          <div className="absolute top-[-23px] left-[407px] h-[277px] w-[326px] overflow-hidden">
+          /* Figma LiveArt desk 326×277 @ (602, −23), r0 — 960 column. */
+          <div className="absolute top-[-23px] left-[602px] h-[277px] w-[326px] overflow-hidden">
             {isVideo ? (
               <CtaVideo
                 src={videoSrc!}
