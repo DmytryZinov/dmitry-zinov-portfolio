@@ -15,6 +15,8 @@ export const rutubeCaseAssets = {
   headerBgMobile: "/cases/rutube/case/header-bg-mobile.png",
   logo: "/cases/rutube/case/logo-rutube-studio.svg",
   story01: "/cases/rutube/case/story-01.png",
+  /** Figma Analysis step `image 674` (`4964:748`). */
+  story09: "/cases/rutube/case/story-09.png",
   story02: "/cases/rutube/case/story-02.jpg",
   story03: "/cases/rutube/case/story-03.png",
   story04: "/cases/rutube/case/story-04.png",
@@ -54,11 +56,16 @@ export const rutubeCaseBrief = {
   taskBody:
     "Снизить время обработки заявки, мигрировать на новую дизайн-систему",
   resultsTitle: "Результаты",
-  resultLines: [
-    "21 → 3 дня обработка заявки",
-    "+7 п.п. сквозной конверсии сценария (34% → 41%)",
-    "−15 п.п. отказов",
-    "UMUX: 96% (n=150, активные пользователи)",
+  /** Figma value SemiBold 600. */
+  resultValueWeight: "semibold" as const,
+  results: [
+    { value: "21 → 3", label: "дня обработка заявки" },
+    {
+      value: "+7 п.п.",
+      label: "сквозной конверсии сценария (34% → 41%)",
+    },
+    { value: "−15 п.п.", label: "отказов при заполнении заявки" },
+    { value: "UMUX: 96%", label: "n=150, активные пользователи" },
   ],
 } as const;
 
@@ -68,15 +75,25 @@ export const rutubeCaseStoryLead =
 export const rutubeCaseStorySteps: CaseStoryStepContent[] = [
   {
     id: "context",
-    mediaFirst: true,
     imageSrc: rutubeCaseAssets.story01,
     imageAlt: "Подача заявки на монетизацию — контекст",
-    imageWidth: 716,
-    imageHeight: 479,
-    paragraphsGap: 24,
+    imageWidth: 896,
+    imageHeight: 584,
     paragraphs: [
-      "Нагрузка на процесс подачи заявки резко увеличилась, время обработки выросло до 3–4 недель, угрожая расти дальше.\nОунер сказала мне подумать, что предпринять для ускорения процесса, совместив с переездом на новую ДС.",
+      "Нагрузка на процесс подачи заявки резко увеличилась, время обработки выросло до 3–4 недель.\nОунер сказала мне подумать, что предпринять для ускорения процесса, совместив с переездом на новую ДС.",
+    ],
+  },
+  {
+    id: "analysis",
+    title: "Анализ",
+    imageSrc: rutubeCaseAssets.story09,
+    imageAlt: "User Story Map и ключевые Job’ы",
+    imageWidth: 896,
+    imageHeight: 339,
+    paragraphs: [
       "Свежих исследований в архиве не было, провёл ~10 интервью с активированными авторами, обсуждая как они подавали заявку + провёл их по интерактивному прототипу текущего флоу.",
+      "Чтобы очертить задачу, выделил ключевые Job’ы — критичные и частотные.\nОни стали фильтром: в концепт попали решения только тех UX-проблем, которые мешают выполнять эти Job’ы.",
+      "Чтобы не утонуть в 300 проблемах, построил User Story Map по Job’ам и обсудил её с командой.\nПомогло лучше понять объём работы и как распределить его между членами команды.",
     ],
   },
   {
@@ -84,8 +101,8 @@ export const rutubeCaseStorySteps: CaseStoryStepContent[] = [
     title: "Проблемы",
     imageSrc: rutubeCaseAssets.story02,
     imageAlt: "Старый сценарий подачи заявки",
-    imageWidth: 716,
-    imageHeight: 425,
+    imageWidth: 896,
+    imageHeight: 531,
     imageRadius: 12,
     paragraphs: [
       "— Модератор вручную проверяет данные и сканы/фото документов, что увеличивает время и стоимость проверки\n— Ручная подача заявки занимает много времени пользователя\n— Текущий интерфейс отпугивает потенциальных авторов с монетизацией, масштабировать такой продукт — сложно",
@@ -109,10 +126,10 @@ export const rutubeCaseStorySteps: CaseStoryStepContent[] = [
     id: "gosuslugi",
     imageSrc: rutubeCaseAssets.story03,
     imageAlt: "Концепт интеграции с Госуслугами",
-    imageWidth: 716,
-    imageHeight: 533,
+    imageWidth: 896,
+    imageHeight: 678,
     paragraphs: [
-      "С автоматизацией и сокращением количества действий должна была справиться интеграция Госуслуг, для защиты закупки был сделан концепт интеграции.",
+      "С автоматизацией и сокращением количества действий должна была справиться интеграция Госуслуг, для защиты закупки был сделал концепт.",
       "Выбраны Госуслуги в ходе бенчмаркинга и составления сравнительной таблицы.",
     ],
   },
@@ -120,18 +137,18 @@ export const rutubeCaseStorySteps: CaseStoryStepContent[] = [
     id: "wallet",
     imageSrc: rutubeCaseAssets.story04,
     imageAlt: "Создание кошелька в начале сценария",
-    imageWidth: 716,
-    imageHeight: 533,
+    imageWidth: 896,
+    imageHeight: 682,
     paragraphs: [
-      "Перенеся создание кошелька в начало сценария, в несколько раз снизил отказы на этом шаге (по результатам интервью).",
+      "Перенеся создания кошелька в начало сценария в несколько раз снизил отказы на этом шаге (по результатам интервью).",
     ],
   },
   {
     id: "draft",
     imageSrc: rutubeCaseAssets.story05,
     imageAlt: "Черновик заявки",
-    imageWidth: 716,
-    imageHeight: 312,
+    imageWidth: 896,
+    imageHeight: 592,
     paragraphs: [
       "Добавил сущность черновика заявки, теперь автор может продолжать подачу заявки с того шага, где он ранее прервал сессию",
     ],
@@ -140,8 +157,8 @@ export const rutubeCaseStorySteps: CaseStoryStepContent[] = [
     id: "fallback",
     imageSrc: rutubeCaseAssets.story06,
     imageAlt: "Fallback ручной подачи по шагам",
-    imageWidth: 716,
-    imageHeight: 586,
+    imageWidth: 896,
+    imageHeight: 795,
     paragraphs: [
       "Ручная подача осталась как fallback-сценарий, но преобразовалась, разбившись на шаги\nВ будущем я масштабировал это на все типы авторов (ФЛ, СМЗ, ИП, юрлица).",
     ],
@@ -154,8 +171,8 @@ export const rutubeCaseStorySteps: CaseStoryStepContent[] = [
     title: "Финальный результат",
     imageSrc: rutubeCaseAssets.story07,
     imageAlt: "Выбор типа сотрудничества",
-    imageWidth: 716,
-    imageHeight: 381,
+    imageWidth: 896,
+    imageHeight: 477,
     imageRadius: 12,
     paragraphs: [
       "Первый экран подачи заявки — выбор типов сотрудничества, погружающий в контекст. Сценарий стал второуровневым, убрав отвлекающую информацию",
@@ -165,8 +182,8 @@ export const rutubeCaseStorySteps: CaseStoryStepContent[] = [
     id: "corners",
     imageSrc: rutubeCaseAssets.story08,
     imageAlt: "Корнер-кейсы смены данных",
-    imageWidth: 716,
-    imageHeight: 432,
+    imageWidth: 896,
+    imageHeight: 584,
     paragraphs: [
       "Добавил корнер-кейсы решаемые раньше через поддержку: смена личных данных, их недостаточность, неактуальность, ошибочность и тд.",
     ],

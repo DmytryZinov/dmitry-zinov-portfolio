@@ -14,7 +14,7 @@ export const casePageNav = {
       external: true,
     },
     {
-      label: "Телеграмм",
+      label: "Телеграм",
       href: "https://t.me/amideyth",
       external: true,
     },

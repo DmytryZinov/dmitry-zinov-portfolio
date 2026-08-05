@@ -9,12 +9,17 @@ type CaseStorySectionProps = {
   steps: readonly CaseStoryStepContent[];
   /**
    * Gap between story steps.
-   * Defaults: mobile 80, desktop 80 (RUTUBE). Transmatika desk uses 96.
+   * Defaults: mobile 80, desktop 80. Opt-in per page (e.g. RUTUBE desk 96).
    */
   stepsGap?: {
     mobile?: number;
     desktop?: number;
   };
+  /**
+   * Gap between lead and steps stack (px).
+   * Default `20`. RUTUBE Figma uses `8`.
+   */
+  leadGap?: number;
   /** Opt-in lightbox for story media. Default false. */
   zoomable?: boolean;
   className?: string;
@@ -28,6 +33,7 @@ export function CaseStorySection({
   lead,
   steps,
   stepsGap,
+  leadGap = 20,
   zoomable = false,
   className,
 }: CaseStorySectionProps) {
@@ -38,6 +44,7 @@ export function CaseStorySection({
   const gapVars = {
     "--story-steps-m": `${gapMob}px`,
     "--story-steps-d": `${gapDesk}px`,
+    "--story-lead-gap": `${leadGap}px`,
   } as CSSProperties;
 
   return (
@@ -48,7 +55,12 @@ export function CaseStorySection({
       )}
       style={gapVars}
     >
-      <div className={cn("flex flex-col", hasLead && "gap-5")}>
+      <div
+        className={cn(
+          "flex flex-col",
+          hasLead && "gap-[var(--story-lead-gap)]",
+        )}
+      >
         {hasLead ? (
           <h2 className="hidden text-[22px] leading-7 font-bold text-[#F7F7F7] md:block">
             {lead}

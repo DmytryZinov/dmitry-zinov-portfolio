@@ -69,7 +69,8 @@ export default function LiveartDeepCasePage() {
               taskBodyTone={liveartCaseBrief.taskBodyTone}
               stackGap={liveartCaseBrief.stackGap}
               resultsTitle={liveartCaseBrief.resultsTitle}
-              resultLines={liveartCaseBrief.resultLines}
+              results={liveartCaseBrief.results}
+              resultValueWeight={liveartCaseBrief.resultValueWeight}
             />
           </Reveal>
 

@@ -69,7 +69,8 @@ export default function TransmatikaDeepCasePage() {
               taskBodyTone={transmatikaCaseBrief.taskBodyTone}
               stackGap={transmatikaCaseBrief.stackGap}
               resultsTitle={transmatikaCaseBrief.resultsTitle}
-              resultLines={transmatikaCaseBrief.resultLines}
+              results={transmatikaCaseBrief.results}
+              resultValueWeight={transmatikaCaseBrief.resultValueWeight}
             />
           </Reveal>
 

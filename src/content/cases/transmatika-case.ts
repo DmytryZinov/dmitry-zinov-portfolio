@@ -85,11 +85,18 @@ export const transmatikaCaseBrief = {
     desktop: 24,
   },
   resultsTitle: "Результаты",
-  resultLines: [
-    "+29% партнёрских заправок",
-    "2 новых партнёра из топ-10 Европы (Shell и OMV)",
-    "−2,8% затрат на топливо",
-    "+17 п.п. использования карты АЗС (до 41%)",
+  resultValueWeight: "bold" as const,
+  results: [
+    { value: "+29%", label: "партнёрских заправок" },
+    {
+      value: "2 новых партнёра",
+      label: "из топ-10 Европы (Shell и OMV)",
+    },
+    { value: "−2,8%", label: "затрат на топливо" },
+    {
+      value: "+17 п.п.",
+      label: "использования карты АЗС (до 41%)",
+    },
   ],
 } as const;
 

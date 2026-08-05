@@ -30,7 +30,7 @@ export const homeHero = {
       external: true,
     },
     {
-      label: "Телеграмм",
+      label: "Телеграм",
       href: "https://t.me/amideyth",
       external: true,
     },
@@ -206,7 +206,7 @@ export const homeContact: ContactContent = {
   },
   links: [
     {
-      label: "Телеграмм",
+      label: "Телеграм",
       href: "https://t.me/amideyth",
       external: true,
     },

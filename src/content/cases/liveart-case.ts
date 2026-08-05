@@ -84,11 +84,12 @@ export const liveartCaseBrief = {
     desktop: 24,
   },
   resultsTitle: "Результаты",
-  resultLines: [
-    "+36% MAU Artist Page",
-    "+3,8% заявок на покупку /продажу",
-    "−27% Bounce rate Artist Page",
-    "х2,4 CR скачивания экспорта данных",
+  resultValueWeight: "bold" as const,
+  results: [
+    { value: "+36%", label: "MAU Artist Page" },
+    { value: "+3,8%", label: "заявок на покупку /продажу" },
+    { value: "−27%", label: "Bounce rate Artist Page" },
+    { value: "х2,4", label: "CR скачивания экспорта данных" },
   ],
 } as const;
 

@@ -7,6 +7,12 @@ type TeamAvatar = {
   alt: string;
 };
 
+/** Figma brief result row — green value + white label. */
+export type CaseBriefResult = {
+  value: string;
+  label: string;
+};
+
 type CaseBriefIntroProps = {
   logoSrc?: string;
   logoAlt?: string;
@@ -20,20 +26,27 @@ type CaseBriefIntroProps = {
   taskBody: string;
   /**
    * Task body text opacity.
-   * `muted` — #F7F7F7 @ 60% (default).
-   * `full` — #F7F7F7 @ 100%.
+   * `muted` — #F7F7F7 @ 60%.
+   * `full` — #F7F7F7 @ 100% (default; Figma brief).
    */
   taskBodyTone?: "muted" | "full";
   /**
-   * Vertical stack gap between major brief blocks (logo / meta / task / results).
-   * Defaults: mobile 24, desktop 24.
+   * Logo ↔ content gap (outer stack only).
+   * Inner meta/task/results stay 24.
+   * Defaults: mobile 12, desktop 24.
    */
   stackGap?: {
     mobile?: number;
     desktop?: number;
   };
   resultsTitle: string;
-  resultLines: readonly string[];
+  /** Metric rows: value (green) + label (white). Replaces flat `resultLines`. */
+  results: readonly CaseBriefResult[];
+  /**
+   * Desktop metric value weight.
+   * `semibold` — RUTUBE (600). `bold` — LiveArt / Transmatika (700). Default `bold`.
+   */
+  resultValueWeight?: "semibold" | "bold";
   className?: string;
 };
 
@@ -72,13 +85,14 @@ export function CaseBriefIntro({
   teamAvatars,
   taskTitle,
   taskBody,
-  taskBodyTone = "muted",
+  taskBodyTone = "full",
   stackGap,
   resultsTitle,
-  resultLines,
+  results,
+  resultValueWeight = "bold",
   className,
 }: CaseBriefIntroProps) {
-  const gapMob = stackGap?.mobile ?? 24;
+  const gapMob = stackGap?.mobile ?? 12;
   const gapDesk = stackGap?.desktop ?? 24;
 
   const stackVars = {
@@ -91,43 +105,41 @@ export function CaseBriefIntro({
       className={cn(
         "bg-ink text-surface",
         "rounded-[20px] p-4 md:rounded-[32px] md:p-8",
+        "shadow-[inset_0_0_0_1px_rgba(255,255,255,0.03)]",
         className,
       )}
       style={stackVars}
     >
+      {/* Outer: logo ↔ content (mob 12 / desk stackGap, default 24). */}
       <div className="flex flex-col gap-[var(--brief-stack-m)] md:gap-[var(--brief-stack-d)]">
         {logoSrc ? (
           <Image
             src={logoSrc}
             alt={logoAlt}
-            width={132}
-            height={20}
+            width={158}
+            height={24}
             className={cn(
               /* self-start: avoid flex stretch → full-width box that centers the SVG */
-              "h-5 w-auto self-start",
+              "h-6 w-auto self-start",
               logoDesktopOnly && "hidden md:block",
             )}
             unoptimized
           />
         ) : null}
 
-        <div className="flex flex-col gap-[var(--brief-stack-m)] md:gap-[var(--brief-stack-d)]">
-          <div
-            className={cn(
-              "flex flex-col md:flex-row md:gap-8",
-              "gap-[var(--brief-stack-m)]",
-            )}
-          >
+        {/* Inner: meta / task / results — always 24. */}
+        <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-6 md:flex-row md:gap-8">
             {/* Role stack: mob gap 2 / desk gap 4. */}
-            <div className="flex min-w-0 flex-1 flex-col gap-0.5 md:max-w-[320px] md:gap-1">
+            <div className="flex min-w-0 flex-1 flex-col gap-0.5 md:gap-1">
               <p className="text-[14px] leading-[18px] font-normal text-[#F7F7F7]/60">
                 {roleLabel}
               </p>
-              <p className="text-[14px] leading-[18px] font-normal text-[#F7F7F7]">
+              <p className="text-[14px] leading-[18px] font-normal text-[#F7F7F7] md:text-[16px] md:leading-5">
                 {roleValue}
               </p>
             </div>
-            <div className="flex min-w-0 flex-col gap-0.5 md:gap-0.5">
+            <div className="flex min-w-0 flex-1 flex-col gap-0.5 md:gap-0.5">
               <p className="text-[14px] leading-[18px] font-normal text-[#F7F7F7]/60">
                 {teamLabel}
               </p>
@@ -141,7 +153,7 @@ export function CaseBriefIntro({
             </h2>
             <p
               className={cn(
-                "text-[14px] leading-[18px] font-normal text-[#F7F7F7]",
+                "text-[14px] leading-[18px] font-normal text-[#F7F7F7] md:text-[16px] md:leading-5",
                 taskBodyTone === "muted" && "text-[#F7F7F7]/60",
               )}
             >
@@ -149,17 +161,29 @@ export function CaseBriefIntro({
             </p>
           </div>
 
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1.5">
             <h2 className="text-[20px] leading-[26px] font-bold text-[#F7F7F7] md:text-[22px] md:leading-7">
               {resultsTitle}
             </h2>
-            <ul className="flex flex-col gap-0.5">
-              {resultLines.map((line) => (
+            <ul className="flex flex-col gap-2">
+              {results.map((item) => (
                 <li
-                  key={line}
-                  className="text-[14px] leading-[18px] font-normal text-accent-green"
+                  key={`${item.value}-${item.label}`}
+                  className="flex flex-row flex-wrap items-baseline gap-1"
                 >
-                  {line}
+                  <span
+                    className={cn(
+                      "text-[16px] leading-5 text-accent-green md:text-[18px] md:leading-5",
+                      resultValueWeight === "semibold"
+                        ? "font-semibold"
+                        : "font-bold",
+                    )}
+                  >
+                    {item.value}
+                  </span>
+                  <span className="text-[13px] leading-[17px] font-normal text-[#F7F7F7] md:text-[14px] md:leading-5">
+                    {item.label}
+                  </span>
                 </li>
               ))}
             </ul>
