@@ -191,7 +191,8 @@ export function ProjectCard({
           size="cardMobile"
           className={cn(
             "h-12 min-h-12 w-full flex-none gap-2 pr-4 pl-5 text-sm leading-[17px]",
-            "md:h-14 md:min-h-14 md:flex-1 md:justify-between md:gap-2 md:py-[13px] md:pr-4 md:pl-5 md:text-base md:leading-[22px]",
+            /* Desk: equal column with primary (flex-1); content centered (not between). */
+            "md:h-14 md:min-h-14 md:flex-1 md:justify-center md:gap-2 md:py-[13px] md:pr-4 md:pl-5 md:text-base md:leading-[22px]",
           )}
           iconRight={<IconArrowUpRight size={18} />}
         >
