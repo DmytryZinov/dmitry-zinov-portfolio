@@ -9,7 +9,7 @@ type CaseStorySectionProps = {
   steps: readonly CaseStoryStepContent[];
   /**
    * Gap between story steps.
-   * Defaults: mobile 80, desktop 80. Opt-in per page (e.g. RUTUBE desk 96).
+   * Defaults: mobile 80, desktop 96 (Deep Case).
    */
   stepsGap?: {
     mobile?: number;
@@ -38,7 +38,7 @@ export function CaseStorySection({
   className,
 }: CaseStorySectionProps) {
   const gapMob = stepsGap?.mobile ?? 80;
-  const gapDesk = stepsGap?.desktop ?? 80;
+  const gapDesk = stepsGap?.desktop ?? 96;
   const hasLead = lead != null && lead.length > 0;
 
   const gapVars = {

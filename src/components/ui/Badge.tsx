@@ -13,8 +13,8 @@ const variantClass: Record<BadgeVariant, string> = {
   default: "bg-surface text-ink",
   muted: "bg-surface-warm text-ink-muted",
   outline: "bg-transparent text-ink border border-border",
-  /** Mini Cards — #F7F7F7 @ 12% on dark card faces. */
-  glass: "bg-surface/12 text-surface",
+  /** Mini Cards — #F7F7F7 @ 8% fill, text @ 80%. */
+  glass: "bg-surface/[0.08] text-surface/80",
 };
 
 export function Badge({

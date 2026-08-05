@@ -21,7 +21,7 @@ export function MiniCard({ card, className }: MiniCardProps) {
         className,
       )}
     >
-      <h3 className="m-0 text-h2-mobile font-bold leading-[26px] text-surface md:text-h2 md:leading-9">
+      <h3 className="m-0 text-h2-mobile font-semibold leading-[26px] text-surface md:text-h2 md:leading-9">
         {title}
       </h3>
       <ul className="m-0 flex list-none flex-wrap gap-2 p-0">

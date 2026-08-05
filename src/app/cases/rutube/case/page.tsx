@@ -71,7 +71,7 @@ export default function RutubeDeepCasePage() {
             lead={rutubeCaseStory.lead}
             steps={rutubeCaseStory.steps}
             /* Figma Story `4930:2410`: steps gap 96, lead→steps 8, stroke @ 3%. */
-            stepsGap={{ desktop: 96 }}
+            stepsGap={{ mobile: 80, desktop: 96 }}
             leadGap={8}
             className="shadow-[inset_0_0_0_1px_rgba(255,255,255,0.03)]"
             zoomable

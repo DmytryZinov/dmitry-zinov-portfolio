@@ -195,9 +195,9 @@ export const homeMiniCards: MiniCard[] = [
 /** Figma `contact` — CTA block after mini cards. */
 export const homeContact: ContactContent = {
   headline: "Есть задача\nили хочется навести порядок в процессах?",
-  subline: "Напишите — обсудим.",
+  subline: "Напишите — обсудим",
   name: "Дмитрий Зинов",
-  role: "продуктовый дизайнер",
+  role: "Продуктовый дизайнер",
   avatar: {
     src: "/images/contact/avatar.png",
     alt: "Дмитрий Зинов",

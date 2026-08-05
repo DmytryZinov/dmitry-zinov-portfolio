@@ -59,10 +59,11 @@ const variantClass: Record<ButtonVariant, string> = {
     "bg-transparent text-ink border border-border hover:bg-surface",
   ghost: "bg-transparent text-ink border border-transparent hover:bg-surface",
   sm: "bg-transparent text-ink border border-border hover:bg-surface rounded-full",
-  /** Hero `smbtn` — default unchanged. */
+  /** Header / TopNav `smbtn` — hover fill only; default/focus unchanged. */
   smOnHero: [
     "bg-transparent text-surface border border-border-on-hero rounded-full",
-    darkButtonHover,
+    "hover:bg-white/20",
+    "focus-visible:bg-[#373737] focus-visible:border-transparent",
   ].join(" "),
   /** Contact `smbtn` — default unchanged. */
   smOnDark: [
